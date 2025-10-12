@@ -154,51 +154,6 @@ def make_issue_comment(issue_id: str, comment: str) -> None:
         sys.exit(1)
 
 
-def mark_issue_in_progress(issue_id: str) -> None:
-    """Mark issue as in progress by adding label and comment."""
-    # Get repo information from git remote
-    github_repo_url = get_repo_url()
-    repo_path = extract_repo_path(github_repo_url)
-
-    # Add "in_progress" label
-    cmd = [
-        "gh",
-        "issue",
-        "edit",
-        issue_id,
-        "-R",
-        repo_path,
-        "--add-label",
-        "in_progress",
-    ]
-
-    # Set up environment with GitHub token if available
-    env = get_github_env()
-
-    # Try to add label (may fail if label doesn't exist)
-    result = subprocess.run(cmd, capture_output=True, text=True, env=env)
-    if result.returncode != 0:
-        print(f"Note: Could not add 'in_progress' label: {result.stderr}")
-
-    # Post comment indicating work has started
-    # make_issue_comment(issue_id, "🚧 ADW is working on this issue...")
-
-    # Assign to self (optional)
-    cmd = [
-        "gh",
-        "issue",
-        "edit",
-        issue_id,
-        "-R",
-        repo_path,
-        "--add-assignee",
-        "@me",
-    ]
-    result = subprocess.run(cmd, capture_output=True, text=True, env=env)
-    if result.returncode == 0:
-        print(f"Assigned issue #{issue_id} to self")
-
-
 def fetch_open_issues(repo_path: str) -> List[GitHubIssueListItem]:
     """Fetch all open issues from the GitHub repository."""
     try:

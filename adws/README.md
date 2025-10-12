@@ -7,11 +7,12 @@ ADW automates software development by integrating GitHub issues with Claude Code
 ### 1. Set Environment Variables
 
 ```bash
-export GITHUB_REPO_URL="https://github.com/owner/repository"
 export ANTHROPIC_API_KEY="sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 export CLAUDE_CODE_PATH="/path/to/claude"  # Optional, defaults to "claude"
 export GITHUB_PAT="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # Optional, only if using different account than 'gh auth login'
 ```
+
+**Note:** Repository URL is automatically detected from `git remote get-url origin`. Ensure you're running ADW from within a git repository with a configured remote.
 
 ### 2. Install Prerequisites
 

@@ -27,7 +27,6 @@ Environment Requirements:
 - GITHUB_PAT: (Optional) GitHub Personal Access Token - only if using a different account than 'gh auth login'
 """
 
-import subprocess
 import sys
 import os
 import logging
@@ -44,7 +43,6 @@ from github import (
     extract_repo_path,
     fetch_issue,
     make_issue_comment,
-    mark_issue_in_progress,
     get_repo_url,
 )
 from utils import make_adw_id, setup_logger
