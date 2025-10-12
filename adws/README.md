@@ -7,12 +7,13 @@ ADW automates software development by integrating GitHub issues with Claude Code
 ### 1. Set Environment Variables
 
 ```bash
-export ANTHROPIC_API_KEY="sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 export CLAUDE_CODE_PATH="/path/to/claude"  # Optional, defaults to "claude"
 export GITHUB_PAT="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # Optional, only if using different account than 'gh auth login'
 ```
 
-**Note:** Repository URL is automatically detected from `git remote get-url origin`. Ensure you're running ADW from within a git repository with a configured remote.
+**Note:**
+- ADW uses your Claude Code Max subscription for authentication (ANTHROPIC_API_KEY is intentionally not used)
+- Repository URL is automatically detected from `git remote get-url origin`. Ensure you're running ADW from within a git repository with a configured remote.
 
 ### 2. Install Prerequisites
 
@@ -175,12 +176,12 @@ uv run trigger_webhook.py
 ### Environment Issues
 ```bash
 # Check required variables
-env | grep -E "(GITHUB|ANTHROPIC|CLAUDE)"
+env | grep -E "(GITHUB|CLAUDE)"
 
 # Verify GitHub auth
 gh auth status
 
-# Test Claude Code
+# Test Claude Code and Max subscription
 claude --version
 ```
 

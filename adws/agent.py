@@ -83,34 +83,34 @@ def convert_jsonl_to_json(jsonl_file: str) -> str:
 
 def get_claude_env() -> Dict[str, str]:
     """Get only the required environment variables for Claude Code execution.
-    
+
     Returns a dictionary containing only the necessary environment variables
     based on .env.sample configuration.
-    
+
     Subprocess env behavior:
     - env=None → Inherits parent's environment (default)
     - env={} → Empty environment (no variables)
     - env=custom_dict → Only uses specified variables
-    
+
     So this will work with gh authentication:
     # These are equivalent:
     result = subprocess.run(cmd, capture_output=True, text=True)
     result = subprocess.run(cmd, capture_output=True, text=True, env=None)
-    
+
     But this will NOT work (no PATH, no auth):
     result = subprocess.run(cmd, capture_output=True, text=True, env={})
+
+    ANTHROPIC_API_KEY is intentionally excluded to force Claude Code to use
+    Max subscription authentication instead of API key authentication.
     """
     required_env_vars = {
-        # Anthropic Configuration (required)
-        "ANTHROPIC_API_KEY": os.getenv("ANTHROPIC_API_KEY"),
-        
         # Claude Code Configuration
         "CLAUDE_CODE_PATH": os.getenv("CLAUDE_CODE_PATH", "claude"),
         "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": os.getenv("CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR", "true"),
-        
+
         # Agent Cloud Sandbox Environment (optional)
         "E2B_API_KEY": os.getenv("E2B_API_KEY"),
-        
+
         # Basic environment variables Claude Code might need
         "HOME": os.getenv("HOME"),
         "USER": os.getenv("USER"),
