@@ -4,16 +4,18 @@ ADW automates software development by integrating GitHub issues with Claude Code
 
 ## Quick Start
 
-### 1. Set Environment Variables
+### 1. Set Environment Variables (All Optional)
 
 ```bash
-export CLAUDE_CODE_PATH="/path/to/claude"  # Optional, defaults to "claude"
+export ANTHROPIC_API_KEY="sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # Optional, only for remote deployments (uses Max subscription locally)
+export CLAUDE_CODE_PATH="/path/to/claude"  # Optional, auto-detected from common locations if not set
 export GITHUB_PAT="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # Optional, only if using different account than 'gh auth login'
 ```
 
 **Note:**
-- ADW uses your Claude Code Max subscription for authentication (ANTHROPIC_API_KEY is intentionally not used)
+- ADW uses your Claude Code Max subscription for authentication locally (ANTHROPIC_API_KEY only needed for remote deployments)
 - Repository URL is automatically detected from `git remote get-url origin`. Ensure you're running ADW from within a git repository with a configured remote.
+- Claude Code CLI path is auto-detected by checking: ~/.claude/local/claude, common bin directories, and PATH. Set CLAUDE_CODE_PATH only if auto-detection fails.
 
 ### 2. Install Prerequisites
 
@@ -190,7 +192,9 @@ claude --version
 **"Claude Code CLI is not installed"**
 ```bash
 which claude  # Check if installed
-# Reinstall from https://docs.anthropic.com/en/docs/claude-code
+# If auto-detection fails, set CLAUDE_CODE_PATH manually:
+export CLAUDE_CODE_PATH="/path/to/claude"
+# Or reinstall from https://docs.anthropic.com/en/docs/claude-code
 ```
 
 **"Missing GITHUB_PAT"** (Optional - only needed if using different account than 'gh auth login')

@@ -36,6 +36,9 @@ from pydantic import BaseModel
 # Import git repo functions from github module
 from github import get_repo_url, extract_repo_path, make_issue_comment
 
+# Import Claude CLI detection
+from agent import find_claude_cli_path
+
 # Load environment variables
 load_dotenv()
 
@@ -60,43 +63,36 @@ class HealthCheckResult(BaseModel):
 
 
 def check_env_vars() -> CheckResult:
-    """Check required environment variables."""
-    required_vars = {
-        "ANTHROPIC_API_KEY": "Anthropic API Key for Claude Code",
-        "CLAUDE_CODE_PATH": "Path to Claude Code CLI (defaults to 'claude')",
-    }
+    """Check environment variables.
 
+    Note: All environment variables are optional:
+    - ANTHROPIC_API_KEY: Only needed for remote deployments (uses Max subscription locally)
+    - CLAUDE_CODE_PATH: Auto-detected by find_claude_cli_path()
+    - GITHUB_PAT: Only needed if using different account than 'gh auth login'
+    """
     optional_vars = {
-        "GITHUB_PAT": "(Optional) GitHub Personal Access Token - only needed if you want ADW to use a different GitHub account than 'gh auth login'",
+        "ANTHROPIC_API_KEY": "(Optional) Anthropic API Key - only needed for remote deployments (uses Max subscription locally)",
+        "CLAUDE_CODE_PATH": "(Optional) Path to Claude Code CLI - auto-detected if not set",
+        "GITHUB_PAT": "(Optional) GitHub Personal Access Token - only needed if using different account than 'gh auth login'",
         "E2B_API_KEY": "(Optional) E2B API Key for sandbox environments",
         "CLOUDFLARED_TUNNEL_TOKEN": "(Optional) Cloudflare tunnel token for webhook exposure",
     }
 
-    missing_required = []
     missing_optional = []
-
-    # Check required vars
-    for var, desc in required_vars.items():
-        if not os.getenv(var):
-            if var == "CLAUDE_CODE_PATH":
-                # This has a default, so not critical
-                continue
-            missing_required.append(f"{var} ({desc})")
 
     # Check optional vars
     for var, desc in optional_vars.items():
         if not os.getenv(var):
             missing_optional.append(f"{var} ({desc})")
 
-    success = len(missing_required) == 0
+    # Get the auto-detected Claude CLI path
+    claude_path = find_claude_cli_path()
 
     return CheckResult(
-        success=success,
-        error="Missing required environment variables" if not success else None,
+        success=True,  # Always success since all vars are optional
         details={
-            "missing_required": missing_required,
             "missing_optional": missing_optional,
-            "claude_code_path": os.getenv("CLAUDE_CODE_PATH", "claude"),
+            "claude_code_path": claude_path,
         },
     )
 
@@ -130,7 +126,7 @@ def check_git_repo() -> CheckResult:
 
 def check_claude_code() -> CheckResult:
     """Test Claude Code CLI functionality."""
-    claude_path = os.getenv("CLAUDE_CODE_PATH", "claude")
+    claude_path = find_claude_cli_path()
 
     # First check if Claude Code is installed
     try:
@@ -291,19 +287,13 @@ def run_health_check() -> HealthCheckResult:
         if gh_check.error:
             result.errors.append(gh_check.error)
 
-    # Check Claude Code - only if we have the API key
-    if os.getenv("ANTHROPIC_API_KEY"):
-        claude_check = check_claude_code()
-        result.checks["claude_code"] = claude_check
-        if not claude_check.success:
-            result.success = False
-            if claude_check.error:
-                result.errors.append(claude_check.error)
-    else:
-        result.checks["claude_code"] = CheckResult(
-            success=False,
-            details={"skipped": True, "reason": "ANTHROPIC_API_KEY not set"},
-        )
+    # Check Claude Code - uses Max subscription, so no API key needed
+    claude_check = check_claude_code()
+    result.checks["claude_code"] = claude_check
+    if not claude_check.success:
+        result.success = False
+        if claude_check.error:
+            result.errors.append(claude_check.error)
 
     return result
 
@@ -365,13 +355,12 @@ def main():
     # Print next steps
     if not result.success:
         print("\n📝 Next Steps:")
-        if any("ANTHROPIC_API_KEY" in e for e in result.errors):
-            print("   1. Set ANTHROPIC_API_KEY in your .env file")
-        if any("GITHUB_PAT" in e for e in result.errors):
-            print("   2. Set GITHUB_PAT in your .env file")
         if any("GitHub CLI" in e for e in result.errors):
-            print("   3. Install GitHub CLI: brew install gh")
-            print("   4. Authenticate: gh auth login")
+            print("   1. Install GitHub CLI: brew install gh")
+            print("   2. Authenticate: gh auth login")
+        if any("Claude Code" in e for e in result.errors):
+            print("   3. Install Claude Code CLI from https://docs.anthropic.com/en/docs/claude-code")
+            print("   4. Authenticate with your Max subscription")
         if any("disler" in w for w in result.warnings):
             print(
                 "   5. Fork/clone the repository and update git remote to your own repo"

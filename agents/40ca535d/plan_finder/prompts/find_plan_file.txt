@@ -1,0 +1,44 @@
+/find_plan_file Perfect! I've created a comprehensive implementation plan for adding optional MCP server support to MC Logger. Let me provide you with a summary of what I've accomplished.
+
+## Summary
+
+I've successfully created a detailed implementation plan for adding optional MCP server support to MC Logger with FastMCP. Here's what the plan includes:
+
+### Key Deliverables in the Plan:
+
+**Plan Location**: `specs/mcp-server-support.md`
+
+**Feature Overview**:
+- Optional MCP server using Python extras mechanism (`mc-logger[mcp]`)
+- 5 MCP Tools (query_logs, get_request_trace, summarize_logs, mark_session, configure_logger)
+- 5 MCP Resources (logs://recent, logs://request/{id}, logs://session/{id}, logs://errors, logs://source/{source})
+- 5 MCP Prompts (debugging workflow templates)
+- CLI command (`mc-logger-mcp`) with environment variable support
+- Zero breaking changes for existing users
+
+**Implementation Structure**:
+- **21 step-by-step tasks** ordered from foundation to validation
+- **4 new module files**: `mc_logger/mcp/{__init__.py, server.py, resources.py, prompts.py, cli.py}`
+- **4 new test files**: Conditional imports with pytest.importorskip for graceful skipping
+- **3 documentation files**: README updates, comprehensive guide, examples
+- **Professional pattern**: Follows industry standards (pydantic-ai, httpx)
+
+**Testing Strategy**:
+- Unit tests for server, resources, prompts
+- Integration tests with temp database
+- Edge case coverage (import guards, empty databases, invalid inputs)
+- CI testing with and without `[mcp]` extra
+
+**Validation**:
+- 15 comprehensive validation commands
+- Tests core functionality without MCP (no regressions)
+- Tests all MCP features with extra installed
+- Manual testing with Claude Desktop and FastMCP CLI
+
+**Design Highlights**:
+- Wrapper pattern (no code duplication)
+- Import guards with helpful error messages
+- Environment variable configuration (Docker/Claude Desktop friendly)
+- Separate module structure for clean architecture
+
+The plan is ready for implementation and follows all the requirements from the feature description, including TDD approach, proper testing, and zero breaking changes!
