@@ -158,9 +158,110 @@ SQLite with WAL mode
 - **Storage**: ~100MB/day for typical workloads
 - **Concurrency**: WAL mode enables concurrent reads during writes
 
+## MCP Server (Optional)
+
+MC Logger can run as a Model Context Protocol (MCP) server, allowing AI assistants like Claude Desktop, Cursor, and others to directly query and analyze logs through standardized tools.
+
+### Installation
+
+Install with the MCP extra:
+
+```bash
+uv add "mc-logger[mcp]"
+# or
+pip install "mc-logger[mcp]"
+```
+
+### Usage
+
+#### Command Line (Stdio Transport)
+
+For Claude Desktop integration:
+
+```bash
+mc-logger-mcp
+```
+
+#### Command Line (HTTP Transport)
+
+For network access:
+
+```bash
+mc-logger-mcp --transport http --port 8000
+```
+
+#### Environment Variables
+
+```bash
+export MC_LOGGER_DB_PATH=/var/log/app.db
+export MC_LOGGER_FLUSH_INTERVAL=2.0
+export MC_LOGGER_TRANSPORT=stdio
+mc-logger-mcp
+```
+
+#### Programmatic Usage
+
+```python
+from mc_logger.mcp import mcp
+
+# Configure your logger first
+from mc_logger import configure
+configure(db_path="./logs.db")
+
+# Run the MCP server
+mcp.run()  # stdio transport by default
+# or
+mcp.run(transport="http", port=8000)
+```
+
+### Claude Desktop Integration
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mc-logger": {
+      "command": "mc-logger-mcp",
+      "env": {
+        "MC_LOGGER_DB_PATH": "/path/to/your/logs.db"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop, and the MC Logger tools will appear in the MCP section.
+
+### Available MCP Tools
+
+- **query_logs**: Query logs with filters (time_range, request_id, session_id, level, source, limit)
+- **get_request_trace**: Get markdown-formatted timeline for a specific request
+- **summarize_logs**: Generate statistics summary by level and source
+- **mark_session**: Mark a session as important for preservation
+- **configure_logger**: Update logger configuration (db_path, flush_interval)
+
+### Available MCP Resources
+
+- **logs://recent** - Logs from last 5 minutes
+- **logs://request/{request_id}** - All logs for specific request
+- **logs://session/{session_id}** - All logs for specific session
+- **logs://errors** - ERROR level logs from last 5 minutes
+- **logs://source/{source}** - Logs from specific source in last 5 minutes
+
+### Available MCP Prompts
+
+- **debug_error_in_request**: Multi-step workflow for investigating request errors
+- **investigate_slow_requests**: Performance analysis for slow requests
+- **find_error_patterns**: Error correlation and pattern analysis
+- **trace_request_flow**: Complete request journey visualization
+- **compare_sessions**: Session diff analysis
+
+See `docs/mcp_server.md` for comprehensive documentation.
+
 ## MCP Tools for AI Assistants
 
-MC Logger provides tools for AI assistants to independently investigate issues:
+MC Logger provides Python functions for AI assistants to independently investigate issues:
 
 ### `query_logs`
 
@@ -278,7 +379,7 @@ curl "http://localhost:8000/debug/summary?time_range=5m"
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.10+ (3.9+ for core logging, 3.10+ for MCP server)
 - FastAPI 0.100.0+
 
 ## License

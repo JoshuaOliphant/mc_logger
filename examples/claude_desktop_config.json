@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "mc-logger": {
+      "command": "mc-logger-mcp",
+      "env": {
+        "MC_LOGGER_DB_PATH": "/path/to/your/logs.db",
+        "MC_LOGGER_FLUSH_INTERVAL": "1.0"
+      }
+    }
+  }
+}

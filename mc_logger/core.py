@@ -204,7 +204,7 @@ def get_logger() -> Logger:
     return _logger_instance
 
 
-def configure(db_path: str = "mc_logger.db", flush_interval: float = 1.0):
+def configure(db_path: str = "mc_logger.db", flush_interval: float = 1.0, force: bool = False):
     """Configure the global logger."""
     logger = get_logger()
-    logger.configure(db_path=db_path, flush_interval=flush_interval)
+    logger.configure(db_path=db_path, flush_interval=flush_interval, force=force)
