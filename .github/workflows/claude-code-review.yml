@@ -1,0 +1,57 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    # Optional: Only run on specific file changes
+    paths:
+      - "src/**/*.py"
+      - "mc_logger/**/*.py"
+      - "tests/**/*.py"
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code Review
+        id: claude-review
+        uses: anthropics/claude-code-action@beta
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+          # Allow bot-initiated workflows (e.g., when Claude Code makes commits)
+          allowed_bots: 'claude,*'
+
+          # Optional: Specify model (defaults to Claude Sonnet 4)
+          # model: "claude-opus-4-20250514"
+
+          # Direct prompt for automated review
+          direct_prompt: |
+            Please review this pull request focusing on:
+            - Code quality and Python best practices (PEP 8, type hints)
+            - Potential bugs or logic errors
+            - Performance considerations
+            - Security concerns (especially SQLite injection, context leakage)
+            - Test coverage (must have unit, integration, and e2e tests)
+            - Async/await correctness
+            - Context propagation using contextvars
+            - Proper use of uv for dependencies
+
+            Be constructive and provide specific suggestions for improvement.
+
+          # Use sticky comments to reuse the same comment on subsequent pushes
+          use_sticky_comment: true
+
+          # Allow Claude to run tests and linting
+          allowed_tools: "Bash(uv run pytest:*),Bash(uv run ruff:*)"
