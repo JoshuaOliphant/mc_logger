@@ -1,0 +1,415 @@
+/feature Add optional MCP server support with FastMCP: # Add Optional MCP Server Support with FastMCP
+
+## Overview
+
+Implement MC Logger as a Model Context Protocol (MCP) server using FastMCP, allowing AI assistants to query and analyze logs through standardized MCP tools, resources, and prompts. The MCP server should be an **optional feature** using Python's extras mechanism to avoid adding dependencies for users who don't need it.
+
+## Motivation
+
+- **AI-First Design**: MC Logger is already optimized for AI-assisted debugging, but currently requires manual function calls
+- **Standardization**: MCP is the emerging standard for AI tool integration (Claude Desktop, Cursor, ChatGPT, etc.)
+- **Zero Overhead**: Users who only need logging shouldn't be forced to install FastMCP
+- **Professional Pattern**: Follow industry best practices (same pattern as `pydantic-ai[anthropic]`, `httpx[http2]`)
+
+## Proposed Solution
+
+### Installation Pattern
+
+```bash
+# Core logging only (current behavior)
+uv add mc-logger
+
+# With MCP server support (new)
+uv add "mc-logger[mcp]"
+
+# Development with MCP (new)
+uv add "mc-logger[dev,mcp]"
+```
+
+### Architecture
+
+Create a new **optional module** `mc_logger/mcp/` that wraps existing `mcp_tools.py` functions as FastMCP tools:
+
+```
+mc_logger/
+├── __init__.py           # Core exports (no MCP dependency)
+├── models.py
+├── storage.py
+├── context.py
+├── core.py
+├── middleware.py
+├── mcp_tools.py          # Existing query functions (no MCP dependency)
+└── mcp/                  # NEW: Optional MCP server module
+    ├── __init__.py       # MCP server exports with import guard
+    ├── server.py         # FastMCP server implementation
+    ├── resources.py      # MCP resources (log streams)
+    ├── prompts.py        # MCP prompts (debugging workflows)
+    └── cli.py            # CLI entry point (optional)
+```
+
+### Key Design Decisions
+
+1. **Separate Module**: Keep MCP code isolated in `mc_logger/mcp/` to maintain separation of concerns
+2. **Import Guards**: Use try/except to provide helpful error messages if fastmcp not installed
+3. **Tool Wrappers**: Wrap existing `mcp_tools.py` functions (don't duplicate logic)
+4. **MCP Resources**: Expose log streams as MCP resources for real-time access
+5. **MCP Prompts**: Provide debugging workflow templates
+6. **Environment Variables**: Support configuration via env vars (Docker/Claude Desktop friendly)
+7. **Optional CLI**: Provide `mc-logger-mcp` command for easy server startup
+8. **Zero Breaking Changes**: Existing users unaffected, no new required dependencies
+
+## Implementation Tasks
+
+### Phase 1: Core MCP Module
+
+- [ ] Update `pyproject.toml` with optional dependencies
+  ```toml
+  [project.optional-dependencies]
+  mcp = ["fastmcp>=2.11.0"]
+  all = ["fastmcp>=2.11.0"]
+  
+  [project.scripts]
+  mc-logger-mcp = "mc_logger.mcp.cli:main"
+  ```
+
+- [ ] Create `mc_logger/mcp/__init__.py` with import guard
+  - Try to import FastMCP
+  - Raise helpful error if not installed: `"Install with: uv add 'mc-logger[mcp]'"`
+  - Export `mcp`, `create_server()`
+
+- [ ] Create `mc_logger/mcp/server.py` with FastMCP server
+  - Initialize FastMCP instance with name and instructions
+  - Define 5 MCP tools wrapping existing functions:
+    - `query_logs()`: Query logs with filters
+    - `get_request_trace()`: Get request timeline
+    - `summarize_logs()`: Generate statistics
+    - `mark_session()`: Tag debug sessions
+    - `configure_logger()`: Set database path
+  - Export `mcp` server instance and `create_server()` factory
+
+- [ ] Create `mc_logger/mcp/resources.py` for MCP resources
+  - `logs://recent` - Stream of recent logs (last 5 minutes)
+  - `logs://request/{request_id}` - Logs for specific request
+  - `logs://session/{session_id}` - Logs for specific session
+  - `logs://errors` - Recent errors only
+  - `logs://source/{source}` - Logs from specific source
+
+- [ ] Create `mc_logger/mcp/prompts.py` for debugging workflows
+  - "Debug error in request {request_id}" - Full error investigation
+  - "Investigate slow requests" - Performance analysis
+  - "Find error patterns in {time_range}" - Error correlation
+  - "Trace request flow for {request_id}" - Request journey
+  - "Compare sessions {session_id_1} and {session_id_2}" - Session diff
+
+- [ ] Create `mc_logger/mcp/cli.py` with environment variable support
+  - Argument parser for CLI options
+  - Environment variable support:
+    - `MC_LOGGER_DB_PATH` - Database path
+    - `MC_LOGGER_FLUSH_INTERVAL` - Queue flush interval
+    - `MC_LOGGER_TRANSPORT` - stdio or http
+    - `MC_LOGGER_PORT` - HTTP port
+  - CLI args override env vars
+  - Support stdio and HTTP transports
+  - Call `mcp.run()` with appropriate settings
+
+### Phase 2: Testing
+
+- [ ] Add `tests/test_mcp_server.py` with conditional imports
+  - Use `pytest.importorskip("fastmcp")` to skip if not installed
+  - Test server creation
+  - Test all tools are registered
+  - Test tool schemas are correct
+
+- [ ] Add `tests/test_mcp_resources.py`
+  - Test resource URI patterns
+  - Test resource content generation
+  - Test templated resources with parameters
+
+- [ ] Add `tests/test_mcp_prompts.py`
+  - Test prompt registration
+  - Test prompt argument handling
+  - Test prompt message generation
+
+- [ ] Add `tests/test_mcp_integration.py`
+  - Test actual tool execution with temp database
+  - Test query_logs returns correct results
+  - Test get_request_trace formats properly
+  - Test resources provide correct data
+  - Test prompts generate valid messages
+  - Test error handling
+
+- [ ] Update CI to test with and without MCP
+  - One job: `uv add .` (without mcp)
+  - One job: `uv add ".[mcp]"` (with mcp)
+
+### Phase 3: Documentation
+
+- [ ] Update `README.md` with MCP section
+  - Installation instructions for `[mcp]` extra
+  - Usage examples (CLI and programmatic)
+  - Claude Desktop integration example
+  - Available MCP tools, resources, and prompts documentation
+
+- [ ] Create `docs/mcp_server.md` with detailed guide
+  - Full server setup instructions
+  - Integration guides for Claude Desktop, Cursor, etc.
+  - Environment variable reference
+  - Advanced configuration options
+  - Troubleshooting section
+
+- [ ] Update `CHANGELOG.md`
+  - New optional feature: MCP server support
+  - MCP tools, resources, and prompts
+  - No breaking changes
+  - Example usage
+
+- [ ] Add integration example to `examples/` directory
+  - `examples/mcp_server_example.py`: Standalone MCP server
+  - `examples/claude_desktop_config.json`: Config example with env vars
+  - `examples/mcp_client_example.py`: Client usage example
+
+### Phase 4: Validation
+
+- [ ] Manual testing with Claude Desktop
+  - Install with `[mcp]` extra
+  - Add to claude_desktop_config.json with env vars
+  - Test all tools work correctly
+  - Test resources are accessible
+  - Test prompts generate useful workflows
+  - Verify error messages are helpful
+
+- [ ] Manual testing with fastmcp CLI
+  - `fastmcp run mc_logger.mcp:mcp`
+  - Test stdio transport
+  - Test HTTP transport
+
+- [ ] Performance testing
+  - Ensure MCP overhead is minimal
+  - Test with large log databases
+  - Verify resource streaming works correctly
+
+## MCP Tools Specification
+
+### 1. query_logs
+**Purpose**: Query logs with various filters  
+**Parameters**:
+- `time_range` (optional): "5m", "2h", "1d"
+- `request_id` (optional): Filter by request ID
+- `session_id` (optional): Filter by session ID
+- `level` (optional): DEBUG, INFO, WARNING, ERROR, CRITICAL
+- `source` (optional): Component source (fastapi, app, etc.)
+- `limit` (default: 100): Max results
+
+**Returns**: List of log entry dictionaries
+
+### 2. get_request_trace
+**Purpose**: Get complete request trace with timeline  
+**Parameters**:
+- `request_id` (required): Request ID to trace
+
+**Returns**: Markdown-formatted trace with timeline, errors, duration
+
+### 3. summarize_logs
+**Purpose**: Generate log statistics  
+**Parameters**:
+- `time_range` (default: "5m"): Time period to summarize
+- `source` (optional): Filter by source
+
+**Returns**: Markdown summary with counts by level and source
+
+### 4. mark_session
+**Purpose**: Tag important debug sessions  
+**Parameters**:
+- `start_time` (required): Start time ("10m" or ISO timestamp)
+- `end_time` (optional): End time (defaults to now)
+- `label` (default: "debug_session"): Descriptive label
+
+**Returns**: Session info with ID and log count
+
+### 5. configure_logger
+**Purpose**: Configure database and settings  
+**Parameters**:
+- `db_path` (default: "./mc_logger.db"): Database path
+- `flush_interval` (default: 1.0): Queue flush interval
+
+**Returns**: Configuration confirmation message
+
+## MCP Resources Specification
+
+### 1. logs://recent
+**Purpose**: Stream of recent logs (last 5 minutes)  
+**Type**: Dynamic resource  
+**Content**: JSON array of log entries
+
+### 2. logs://request/{request_id}
+**Purpose**: All logs for a specific request  
+**Type**: Templated resource  
+**Content**: JSON array of log entries with request context
+
+### 3. logs://session/{session_id}
+**Purpose**: All logs for a specific debug session  
+**Type**: Templated resource  
+**Content**: JSON array of log entries for session
+
+### 4. logs://errors
+**Purpose**: Recent errors only (last 5 minutes)  
+**Type**: Dynamic resource  
+**Content**: JSON array of error log entries
+
+### 5. logs://source/{source}
+**Purpose**: Recent logs from specific source  
+**Type**: Templated resource  
+**Content**: JSON array of log entries filtered by source
+
+## MCP Prompts Specification
+
+### 1. debug_error_in_request
+**Name**: "Debug error in request"  
+**Arguments**: `request_id` (string)  
+**Template**: Investigation workflow for error in specific request  
+**Output**: Multi-step debugging guide with log queries
+
+### 2. investigate_slow_requests
+**Name**: "Investigate slow requests"  
+**Arguments**: `time_range` (default: "10m"), `threshold_ms` (default: 1000)  
+**Template**: Performance analysis workflow  
+**Output**: Query plan for finding slow requests
+
+### 3. find_error_patterns
+**Name**: "Find error patterns"  
+**Arguments**: `time_range` (default: "1h")  
+**Template**: Error correlation analysis  
+**Output**: Guide for identifying error patterns
+
+### 4. trace_request_flow
+**Name**: "Trace request flow"  
+**Arguments**: `request_id` (string)  
+**Template**: Complete request journey visualization  
+**Output**: Step-by-step trace with timeline
+
+### 5. compare_sessions
+**Name**: "Compare debug sessions"  
+**Arguments**: `session_id_1` (string), `session_id_2` (string)  
+**Template**: Session comparison workflow  
+**Output**: Diff analysis guide
+
+## Usage Examples
+
+### CLI Usage
+```bash
+# Install with MCP support
+uv add "mc-logger[mcp]"
+
+# Run with stdio (for MCP clients)
+mc-logger-mcp
+
+# Run with environment variables
+export MC_LOGGER_DB_PATH=/var/log/mc_logger.db
+export MC_LOGGER_FLUSH_INTERVAL=2.0
+mc-logger-mcp
+
+# Run with HTTP
+mc-logger-mcp --transport http --port 8080
+
+# CLI args override env vars
+mc-logger-mcp --db-path /path/to/logs.db
+```
+
+### Programmatic Usage
+```python
+from mc_logger.mcp import create_server
+
+server = create_server()
+server.run()  # stdio transport by default
+```
+
+### FastMCP CLI Usage
+```bash
+fastmcp run mc_logger.mcp:mcp
+fastmcp run mc_logger.mcp:mcp --transport http --port 8000
+```
+
+### Claude Desktop Integration
+```json
+{
+  "mcpServers": {
+    "mc-logger": {
+      "command": "mc-logger-mcp",
+      "env": {
+        "MC_LOGGER_DB_PATH": "/path/to/logs.db",
+        "MC_LOGGER_FLUSH_INTERVAL": "2.0"
+      }
+    }
+  }
+}
+```
+
+### Using MCP Resources
+```python
+# Via MCP client
+resource = await client.read_resource("logs://recent")
+errors = await client.read_resource("logs://errors")
+request_logs = await client.read_resource("logs://request/abc123")
+```
+
+### Using MCP Prompts
+```python
+# Via MCP client
+prompt = await client.get_prompt("debug_error_in_request", request_id="abc123")
+# Returns debugging workflow with specific queries
+```
+
+## Benefits
+
+1. **Zero Breaking Changes**: Existing users unaffected
+2. **Professional Pattern**: Follows industry best practices
+3. **Clean Architecture**: Separation of concerns maintained
+4. **Easy Testing**: Can test with/without fastmcp
+5. **Future-Proof**: Easy to add more optional features later
+6. **Great UX**: Clear error messages, simple installation
+7. **Full MCP Feature Set**: Tools, resources, AND prompts
+8. **Flexible Configuration**: CLI args + environment variables
+
+## Design Document
+
+Full design document available at: `mcp_server_design.md`
+
+## Acceptance Criteria
+
+- [ ] Users can install with `uv add "mc-logger[mcp]"`
+- [ ] Import guard provides helpful error without fastmcp
+- [ ] All 5 MCP tools work correctly
+- [ ] All 5 MCP resources are accessible
+- [ ] All 5 MCP prompts generate useful workflows
+- [ ] Environment variables configure server correctly
+- [ ] CLI command `mc-logger-mcp` runs server
+- [ ] Works with Claude Desktop
+- [ ] All tests pass with and without `[mcp]` extra
+- [ ] Documentation complete and accurate
+- [ ] No new required dependencies
+- [ ] Zero breaking changes for existing users
+
+## Related Files
+
+- Design document: `mcp_server_design.md`
+- Existing tools: `mc_logger/mcp_tools.py`
+- Package config: `pyproject.toml`
+
+## Environment Variables
+
+### Configuration Variables
+- `MC_LOGGER_DB_PATH` - Path to SQLite database (default: "./mc_logger.db")
+- `MC_LOGGER_FLUSH_INTERVAL` - Queue flush interval in seconds (default: "1.0")
+- `MC_LOGGER_TRANSPORT` - Transport type: "stdio" or "http" (default: "stdio")
+- `MC_LOGGER_PORT` - HTTP port when using HTTP transport (default: "8000")
+
+### Priority
+CLI arguments > Environment variables > Defaults
+
+## References
+
+- [FastMCP Documentation](https://gofastmcp.com/)
+- [MCP Protocol Specification](https://modelcontextprotocol.io/)
+- [Python Packaging - Optional Dependencies](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
+- [FastMCP Resources](https://gofastmcp.com/servers/resources.md)
+- [FastMCP Prompts](https://gofastmcp.com/servers/prompts.md)

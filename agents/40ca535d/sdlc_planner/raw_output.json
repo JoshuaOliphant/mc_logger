@@ -1,0 +1,771 @@
+[
+  {
+    "type": "system",
+    "subtype": "init",
+    "cwd": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger",
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "tools": [
+      "Task",
+      "Bash",
+      "Glob",
+      "Grep",
+      "ExitPlanMode",
+      "Read",
+      "Edit",
+      "Write",
+      "NotebookEdit",
+      "WebFetch",
+      "TodoWrite",
+      "WebSearch",
+      "BashOutput",
+      "KillShell",
+      "SlashCommand"
+    ],
+    "mcp_servers": [],
+    "model": "claude-sonnet-4-5-20250929",
+    "permissionMode": "bypassPermissions",
+    "slash_commands": [
+      "uii",
+      "brainstorm",
+      "realtime-feature",
+      "plan-tdd",
+      "session-summary",
+      "plan",
+      "pr-comments",
+      "project-init",
+      "feature-complete",
+      "db-migrate",
+      "do-prompt-plan",
+      "view-improvements",
+      "tdd",
+      "scaffold-api",
+      "tdd-container",
+      "make-github-issues",
+      "epcc-container",
+      "gh-issue",
+      "improve-prompt",
+      "knowledge-consolidate",
+      "plan-gh",
+      "knowledge-capture",
+      "epcc",
+      "claude-md-sync",
+      "update-claude-md",
+      "setup",
+      "ws-workflow",
+      "find-missing-tests",
+      "knowledge-migrate",
+      "issue-from-code",
+      "new-feature-redesigned",
+      "do-issues",
+      "classify_issue",
+      "tools",
+      "feature",
+      "start",
+      "commit",
+      "prime",
+      "chore",
+      "pull_request",
+      "bug",
+      "install",
+      "find_plan_file",
+      "generate_branch_name",
+      "implement",
+      "compact",
+      "context",
+      "cost",
+      "init",
+      "output-style:new",
+      "pr-comments",
+      "release-notes",
+      "todos",
+      "review",
+      "security-review"
+    ],
+    "apiKeySource": "none",
+    "output_style": "default",
+    "agents": [
+      "general-purpose",
+      "statusline-setup",
+      "output-style-setup",
+      "jinja2-specialist",
+      "deployment-specialist",
+      "realtime-specialist",
+      "knowledge-capturer",
+      "committer",
+      "coder",
+      "knowledge-refiner",
+      "planner",
+      "performance-optimizer",
+      "hook-creator",
+      "test-writer",
+      "monitoring-specialist",
+      "htmx-enhancer",
+      "investigator",
+      "screenshot",
+      "linter",
+      "api-builder",
+      "tailwind-designer",
+      "pydantic-ai-specialist",
+      "database-migration-specialist",
+      "sqlalchemy-architect",
+      "storage-specialist",
+      "meta-agent",
+      "uv-script-creator",
+      "auth-specialist",
+      "pr-drafter",
+      "celery-specialist"
+    ],
+    "uuid": "918e58f0-0f3f-4a56-a5e3-ef1c38de3897"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01GGr5hsdKez1GwA6YRKJBoZ",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll help you create a comprehensive implementation plan for adding optional MCP server support to MC Logger. Let me start by researching the codebase structure and existing patterns."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 20256,
+        "cache_read_input_tokens": 14669,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 20256,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "bde0804a-e158-4298-bb8d-43e63cf27c3b"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01GGr5hsdKez1GwA6YRKJBoZ",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01G5fpsDPsTQ3dbo3VPWB5Zk",
+          "name": "Read",
+          "input": {
+            "file_path": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/README.md"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 20256,
+        "cache_read_input_tokens": 14669,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 20256,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "62775862-262d-4592-87b3-9351db8308cd"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01GGr5hsdKez1GwA6YRKJBoZ",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01BF667pg3thjjaZpih4hrr6",
+          "name": "Read",
+          "input": {
+            "file_path": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/pyproject.toml"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 20256,
+        "cache_read_input_tokens": 14669,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 20256,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "8e784330-755f-43fa-9f88-25af354f681e"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01GGr5hsdKez1GwA6YRKJBoZ",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01QiytkzKy5ocokjJ6endYiv",
+          "name": "Glob",
+          "input": {
+            "pattern": "mc_logger/*.py"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 20256,
+        "cache_read_input_tokens": 14669,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 20256,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "7f5cb736-16f8-4e62-a529-a9f0f98f569a"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01BF667pg3thjjaZpih4hrr6",
+          "type": "tool_result",
+          "content": "     1\u2192[project]\n     2\u2192name = \"mc-logger\"\n     3\u2192version = \"0.1.0\"\n     4\u2192description = \"Unified semantic logging system optimized for AI-assisted debugging\"\n     5\u2192readme = \"README.md\"\n     6\u2192requires-python = \">=3.9\"\n     7\u2192license = {text = \"MIT\"}\n     8\u2192authors = [\n     9\u2192    {name = \"MC Logger Contributors\"}\n    10\u2192]\n    11\u2192dependencies = [\n    12\u2192    \"fastapi>=0.100.0\",\n    13\u2192]\n    14\u2192\n    15\u2192[project.optional-dependencies]\n    16\u2192dev = [\n    17\u2192    \"pytest>=7.0.0\",\n    18\u2192    \"pytest-asyncio>=0.21.0\",\n    19\u2192    \"httpx>=0.24.0\",\n    20\u2192    \"uvicorn>=0.23.0\",\n    21\u2192]\n    22\u2192\n    23\u2192[build-system]\n    24\u2192requires = [\"hatchling\"]\n    25\u2192build-backend = \"hatchling.build\"\n    26\u2192\n    27\u2192[tool.pytest.ini_options]\n    28\u2192asyncio_mode = \"auto\"\n    29\u2192testpaths = [\"tests\"]\n    30\u2192\n    31\u2192[dependency-groups]\n    32\u2192dev = [\n    33\u2192    \"httpx>=0.28.1\",\n    34\u2192]\n    35\u2192\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "e892cd19-c926-4ceb-a707-3864d214afc0"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01QiytkzKy5ocokjJ6endYiv",
+          "type": "tool_result",
+          "content": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/__init__.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/context.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/storage.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/middleware.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/mcp_tools.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/models.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/core.py"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "42f682e6-3b81-4bcc-8d2f-f7bedda3099f"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01G5fpsDPsTQ3dbo3VPWB5Zk",
+          "type": "tool_result",
+          "content": "     1\u2192# MC Logger\n     2\u2192\n     3\u2192Unified semantic logging system optimized for AI-assisted debugging.\n     4\u2192\n     5\u2192## Features\n     6\u2192\n     7\u2192- **Zero-Configuration FastAPI Instrumentation**: Add one line to automatically log all requests, responses, and errors\n     8\u2192- **Automatic Correlation Tracking**: Request IDs propagated through async contexts\n     9\u2192- **AI-Optimized Query Tools**: MCP tools for Claude and other AI assistants to independently investigate issues\n    10\u2192- **Efficient SQLite Storage**: WAL mode for concurrent access, ~100MB/day for typical workloads\n    11\u2192- **Minimal Overhead**: < 1ms per request, < 10MB base memory usage\n    12\u2192- **Semantic Structure**: Consistent metadata format for machine parsing while preserving original log messages\n    13\u2192\n    14\u2192## Installation\n    15\u2192\n    16\u2192```bash\n    17\u2192uv add mc-logger\n    18\u2192```\n    19\u2192\n    20\u2192Or with pip:\n    21\u2192\n    22\u2192```bash\n    23\u2192pip install mc-logger\n    24\u2192```\n    25\u2192\n    26\u2192## Quick Start\n    27\u2192\n    28\u2192### FastAPI Integration\n    29\u2192\n    30\u2192```python\n    31\u2192from fastapi import FastAPI\n    32\u2192from mc_logger import configure, instrument_fastapi\n    33\u2192\n    34\u2192# Configure MC Logger (optional - uses defaults if not called)\n    35\u2192configure(db_path=\"./logs.db\")\n    36\u2192\n    37\u2192# Create your FastAPI app\n    38\u2192app = FastAPI()\n    39\u2192\n    40\u2192# Instrument with MC Logger (one line!)\n    41\u2192instrument_fastapi(app)\n    42\u2192\n    43\u2192# All requests are now automatically logged!\n    44\u2192@app.get(\"/\")\n    45\u2192async def root():\n    46\u2192    return {\"message\": \"Hello\"}\n    47\u2192```\n    48\u2192\n    49\u2192### Manual Logging\n    50\u2192\n    51\u2192```python\n    52\u2192from mc_logger import get_logger\n    53\u2192\n    54\u2192logger = get_logger()\n    55\u2192\n    56\u2192logger.log(\"INFO\", \"User action completed\", source=\"api\")\n    57\u2192logger.log(\"ERROR\", \"Payment failed\", source=\"payment\", metadata={\"amount\": 100})\n    58\u2192```\n    59\u2192\n    60\u2192## Configuration\n    61\u2192\n    62\u2192```python\n    63\u2192from mc_logger import configure\n    64\u2192\n    65\u2192configure(\n    66\u2192    db_path=\"./logs.db\",        # SQLite database path\n    67\u2192    flush_interval=1.0,         # Flush queue every N seconds\n    68\u2192)\n    69\u2192```\n    70\u2192\n    71\u2192## Querying Logs\n    72\u2192\n    73\u2192### Using the Logger API\n    74\u2192\n    75\u2192```python\n    76\u2192from mc_logger import get_logger\n    77\u2192\n    78\u2192logger = get_logger()\n    79\u2192\n    80\u2192# Query recent logs\n    81\u2192entries = logger.query(limit=100)\n    82\u2192\n    83\u2192# Filter by level\n    84\u2192errors = logger.query(level=\"ERROR\", limit=50)\n    85\u2192\n    86\u2192# Filter by request ID\n    87\u2192request_logs = logger.query(request_id=\"abc12345\")\n    88\u2192\n    89\u2192# Filter by time range (unix timestamps)\n    90\u2192import time\n    91\u2192recent = logger.query(\n    92\u2192    start_time=time.time() - 300,  # Last 5 minutes\n    93\u2192    limit=100\n    94\u2192)\n    95\u2192```\n    96\u2192\n    97\u2192### Using MCP Tools (for AI Assistants)\n    98\u2192\n    99\u2192```python\n   100\u2192from mc_logger.mcp_tools import query_logs, get_request_trace, summarize_logs\n   101\u2192\n   102\u2192# Query with time range\n   103\u2192entries = query_logs(time_range=\"5m\", level=\"ERROR\")\n   104\u2192\n   105\u2192# Get complete trace for a request\n   106\u2192trace = get_request_trace(\"abc12345\")\n   107\u2192print(trace)  # Markdown-formatted timeline with emoji indicators\n   108\u2192\n   109\u2192# Get summary statistics\n   110\u2192summary = summarize_logs(time_range=\"1h\")\n   111\u2192print(summary)  # Events by level and source\n   112\u2192```\n   113\u2192\n   114\u2192## What Gets Logged\n   115\u2192\n   116\u2192### Automatic Middleware Logs\n   117\u2192\n   118\u2192For every request:\n   119\u2192\n   120\u2192- `request.start`: Method, path, query params, headers (redacted), client IP\n   121\u2192- `request.complete`: Status code, duration, slow request flag (>1s)\n   122\u2192- `request.error`: Error type, message, full traceback\n   123\u2192\n   124\u2192### Manual Logs\n   125\u2192\n   126\u2192Your application code logs with automatic enrichment:\n   127\u2192\n   128\u2192- Timestamp (auto)\n   129\u2192- Level (uppercased)\n   130\u2192- Message\n   131\u2192- Source (default: \"app\")\n   132\u2192- Request ID (from context)\n   133\u2192- Session ID (from context)\n   134\u2192- Correlation ID (from context)\n   135\u2192- Confidence score (optional)\n   136\u2192- Metadata dict (optional)\n   137\u2192\n   138\u2192## Architecture\n   139\u2192\n   140\u2192```\n   141\u2192FastAPI App\n   142\u2192    \u2193\n   143\u2192Middleware (captures requests/responses)\n   144\u2192    \u2193\n   145\u2192Logger (enriches with context)\n   146\u2192    \u2193\n   147\u2192Queue (async, max 10k entries)\n   148\u2192    \u2193\n   149\u2192Worker Thread (batch writes every 1s)\n   150\u2192    \u2193\n   151\u2192SQLite with WAL mode\n   152\u2192```\n   153\u2192\n   154\u2192## Performance\n   155\u2192\n   156\u2192- **Request Overhead**: < 1ms per request (async queue)\n   157\u2192- **Memory Usage**: < 10MB base, grows with queue depth\n   158\u2192- **Storage**: ~100MB/day for typical workloads\n   159\u2192- **Concurrency**: WAL mode enables concurrent reads during writes\n   160\u2192\n   161\u2192## MCP Tools for AI Assistants\n   162\u2192\n   163\u2192MC Logger provides tools for AI assistants to independently investigate issues:\n   164\u2192\n   165\u2192### `query_logs`\n   166\u2192\n   167\u2192```python\n   168\u2192query_logs(\n   169\u2192    time_range=\"5m\",           # \"5m\", \"2h\", \"1d\"\n   170\u2192    request_id=None,\n   171\u2192    session_id=None,\n   172\u2192    level=None,                # \"INFO\", \"ERROR\", etc.\n   173\u2192    source=None,               # \"api\", \"worker\", etc.\n   174\u2192    limit=1000\n   175\u2192)\n   176\u2192```\n   177\u2192\n   178\u2192### `get_request_trace`\n   179\u2192\n   180\u2192Returns markdown-formatted timeline for a request:\n   181\u2192\n   182\u2192```markdown\n   183\u2192# Request Trace: abc12345\n   184\u2192\n   185\u2192**Duration:** 245.67ms\n   186\u2192**Events:** 8\n   187\u2192**Errors:** \u274c 1\n   188\u2192\n   189\u2192## Timeline\n   190\u2192\n   191\u2192**14:23:45.123** \u2139\ufe0f `INFO` request.start\n   192\u2192  - method: POST\n   193\u2192  - path: /checkout\n   194\u2192\n   195\u2192**14:23:45.234** \u2139\ufe0f `INFO` Processing payment\n   196\u2192  - amount: 100\n   197\u2192\n   198\u2192**14:23:45.345** \u274c `ERROR` Payment failed\n   199\u2192  - error: insufficient_funds\n   200\u2192```\n   201\u2192\n   202\u2192### `summarize_logs`\n   203\u2192\n   204\u2192Returns markdown summary with statistics:\n   205\u2192\n   206\u2192```markdown\n   207\u2192# Log Summary\n   208\u2192\n   209\u2192**Time Range:** 2025-01-15 14:00:00 to 2025-01-15 15:00:00\n   210\u2192**Total Events:** 1,234\n   211\u2192\n   212\u2192## Events by Level\n   213\u2192\n   214\u2192- **INFO**: 1,000\n   215\u2192- **ERROR**: 150\n   216\u2192- **WARNING**: 84\n   217\u2192\n   218\u2192## Events by Source\n   219\u2192\n   220\u2192- **api**: 800\n   221\u2192- **middleware**: 400\n   222\u2192- **worker**: 34\n   223\u2192```\n   224\u2192\n   225\u2192### `mark_session`\n   226\u2192\n   227\u2192Mark a time period as important for preservation:\n   228\u2192\n   229\u2192```python\n   230\u2192mark_session(\"sess123\", start_time=..., end_time=...)\n   231\u2192```\n   232\u2192\n   233\u2192## Header Redaction\n   234\u2192\n   235\u2192Sensitive headers are automatically redacted:\n   236\u2192\n   237\u2192- `authorization`\n   238\u2192- `cookie`\n   239\u2192- `x-api-key`\n   240\u2192- `x-csrf-token`\n   241\u2192- `x-auth-token`\n   242\u2192\n   243\u2192## Excluded Paths\n   244\u2192\n   245\u2192Health check endpoints are excluded by default:\n   246\u2192\n   247\u2192- `/health`\n   248\u2192- `/healthz`\n   249\u2192- `/ping`\n   250\u2192- `/_health`\n   251\u2192\n   252\u2192Customize with:\n   253\u2192\n   254\u2192```python\n   255\u2192from mc_logger import instrument_fastapi\n   256\u2192\n   257\u2192instrument_fastapi(app, exclude_paths={\"/custom\", \"/health\"})\n   258\u2192```\n   259\u2192\n   260\u2192## Examples\n   261\u2192\n   262\u2192See `examples/fastapi_app.py` for a complete working application.\n   263\u2192\n   264\u2192Run the example:\n   265\u2192\n   266\u2192```bash\n   267\u2192uv run python examples/fastapi_app.py\n   268\u2192```\n   269\u2192\n   270\u2192Test it:\n   271\u2192\n   272\u2192```bash\n   273\u2192curl http://localhost:8000/\n   274\u2192curl http://localhost:8000/users/42\n   275\u2192curl http://localhost:8000/error\n   276\u2192curl \"http://localhost:8000/debug/summary?time_range=5m\"\n   277\u2192```\n   278\u2192\n   279\u2192## Requirements\n   280\u2192\n   281\u2192- Python 3.9+\n   282\u2192- FastAPI 0.100.0+\n   283\u2192\n   284\u2192## License\n   285\u2192\n   286\u2192MIT\n   287\u2192\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "d54db737-2ab3-4d83-948c-365e10cabd01"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01XSx7EYtNmQc4uZ2hLuKfHB",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01GfmD2dJv8A6TiD6QyHQ4VJ",
+          "name": "Read",
+          "input": {
+            "file_path": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/__init__.py"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 719,
+        "cache_creation_input_tokens": 2975,
+        "cache_read_input_tokens": 34925,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 2975,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 41,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "bf6693e0-3376-4678-bc50-eb6599b18a40"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01XSx7EYtNmQc4uZ2hLuKfHB",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_019o85j144tp8NdU7ULjPZ4Z",
+          "name": "Read",
+          "input": {
+            "file_path": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/mcp_tools.py"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 719,
+        "cache_creation_input_tokens": 2975,
+        "cache_read_input_tokens": 34925,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 2975,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 41,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "d6d19788-c7fe-4699-a83c-7a48f7bc8393"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01XSx7EYtNmQc4uZ2hLuKfHB",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_016d7rRFvd8mvY4fX2E8a9cE",
+          "name": "Glob",
+          "input": {
+            "pattern": "tests/*.py"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 719,
+        "cache_creation_input_tokens": 2975,
+        "cache_read_input_tokens": 34925,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 2975,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 41,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "64d276d6-4fe6-4b2c-8539-2bfbd124d06e"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01XSx7EYtNmQc4uZ2hLuKfHB",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01UuoyxjFwQeTF4DVHeYeChr",
+          "name": "Glob",
+          "input": {
+            "pattern": "examples/*.py"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 719,
+        "cache_creation_input_tokens": 2975,
+        "cache_read_input_tokens": 34925,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 2975,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 232,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "edc14689-28d2-4d5e-85b1-f5e1d676af68"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_019o85j144tp8NdU7ULjPZ4Z",
+          "type": "tool_result",
+          "content": "     1\u2192# ABOUTME: MCP query tools for AI assistants to analyze logs\n     2\u2192# ABOUTME: Provides log querying, request tracing, and summarization functions\n     3\u2192\n     4\u2192\"\"\"MCP tools for querying and analyzing logs.\"\"\"\n     5\u2192\n     6\u2192import re\n     7\u2192from collections import Counter\n     8\u2192from datetime import datetime, timedelta\n     9\u2192from typing import Dict, List, Optional\n    10\u2192\n    11\u2192from mc_logger.core import get_logger\n    12\u2192from mc_logger.models import LogEntry\n    13\u2192\n    14\u2192\n    15\u2192def parse_time_range(time_range: str) -> tuple[float, float]:\n    16\u2192    \"\"\"Parse time range like '5m', '2h', '1d' to (start_timestamp, end_timestamp).\"\"\"\n    17\u2192    import time\n    18\u2192\n    19\u2192    match = re.match(r\"(\\d+)([mhd])\", time_range.lower())\n    20\u2192    if not match:\n    21\u2192        raise ValueError(f\"Invalid time range format: {time_range}\")\n    22\u2192\n    23\u2192    amount = int(match.group(1))\n    24\u2192    unit = match.group(2)\n    25\u2192\n    26\u2192    # Use time.time() for consistent timestamp handling\n    27\u2192    now = time.time()\n    28\u2192\n    29\u2192    if unit == \"m\":\n    30\u2192        delta_seconds = amount * 60\n    31\u2192    elif unit == \"h\":\n    32\u2192        delta_seconds = amount * 3600\n    33\u2192    elif unit == \"d\":\n    34\u2192        delta_seconds = amount * 86400\n    35\u2192    else:\n    36\u2192        raise ValueError(f\"Invalid time unit: {unit}\")\n    37\u2192\n    38\u2192    start_time = now - delta_seconds\n    39\u2192    end_time = now\n    40\u2192\n    41\u2192    return start_time, end_time\n    42\u2192\n    43\u2192\n    44\u2192def query_logs(\n    45\u2192    time_range: Optional[str] = None,\n    46\u2192    request_id: Optional[str] = None,\n    47\u2192    session_id: Optional[str] = None,\n    48\u2192    level: Optional[str] = None,\n    49\u2192    source: Optional[str] = None,\n    50\u2192    limit: int = 1000,\n    51\u2192) -> List[LogEntry]:\n    52\u2192    \"\"\"Query logs with filters.\"\"\"\n    53\u2192    logger = get_logger()\n    54\u2192\n    55\u2192    start_time = None\n    56\u2192    end_time = None\n    57\u2192\n    58\u2192    if time_range:\n    59\u2192        start_time, end_time = parse_time_range(time_range)\n    60\u2192\n    61\u2192    return logger.query(\n    62\u2192        start_time=start_time,\n    63\u2192        end_time=end_time,\n    64\u2192        request_id=request_id,\n    65\u2192        session_id=session_id,\n    66\u2192        level=level,\n    67\u2192        source=source,\n    68\u2192        limit=limit,\n    69\u2192    )\n    70\u2192\n    71\u2192\n    72\u2192def get_request_trace(request_id: str) -> str:\n    73\u2192    \"\"\"Get markdown-formatted timeline for a request_id.\"\"\"\n    74\u2192    logger = get_logger()\n    75\u2192    entries = logger.query(request_id=request_id, limit=10000)\n    76\u2192\n    77\u2192    if not entries:\n    78\u2192        return f\"No logs found for request_id: {request_id}\"\n    79\u2192\n    80\u2192    # Sort by timestamp\n    81\u2192    entries.sort(key=lambda e: e.timestamp)\n    82\u2192\n    83\u2192    # Calculate duration\n    84\u2192    start_time = entries[0].timestamp\n    85\u2192    end_time = entries[-1].timestamp\n    86\u2192    duration_ms = (end_time - start_time) * 1000\n    87\u2192\n    88\u2192    # Count errors\n    89\u2192    error_count = sum(1 for e in entries if e.level == \"ERROR\")\n    90\u2192    warning_count = sum(1 for e in entries if e.level == \"WARNING\")\n    91\u2192\n    92\u2192    # Build markdown output\n    93\u2192    lines = []\n    94\u2192    lines.append(f\"# Request Trace: {request_id}\")\n    95\u2192    lines.append(\"\")\n    96\u2192    lines.append(f\"**Duration:** {duration_ms:.2f}ms\")\n    97\u2192    lines.append(f\"**Events:** {len(entries)}\")\n    98\u2192    if error_count > 0:\n    99\u2192        lines.append(f\"**Errors:** \u274c {error_count}\")\n   100\u2192    if warning_count > 0:\n   101\u2192        lines.append(f\"**Warnings:** \u26a0\ufe0f {warning_count}\")\n   102\u2192    lines.append(\"\")\n   103\u2192    lines.append(\"## Timeline\")\n   104\u2192    lines.append(\"\")\n   105\u2192\n   106\u2192    # Format each entry\n   107\u2192    for entry in entries:\n   108\u2192        timestamp = datetime.fromtimestamp(entry.timestamp).strftime(\"%H:%M:%S.%f\")[:-3]\n   109\u2192\n   110\u2192        # Add emoji indicator\n   111\u2192        if entry.level == \"ERROR\":\n   112\u2192            indicator = \"\u274c\"\n   113\u2192        elif entry.level == \"WARNING\":\n   114\u2192            indicator = \"\u26a0\ufe0f\"\n   115\u2192        elif entry.level == \"INFO\":\n   116\u2192            indicator = \"\u2139\ufe0f\"\n   117\u2192        else:\n   118\u2192            indicator = \"\ud83d\udd0d\"\n   119\u2192\n   120\u2192        lines.append(f\"**{timestamp}** {indicator} `{entry.level}` {entry.message}\")\n   121\u2192\n   122\u2192        if entry.metadata:\n   123\u2192            for key, value in entry.metadata.items():\n   124\u2192                lines.append(f\"  - {key}: {value}\")\n   125\u2192\n   126\u2192        lines.append(\"\")\n   127\u2192\n   128\u2192    return \"\\n\".join(lines)\n   129\u2192\n   130\u2192\n   131\u2192def mark_session(\n   132\u2192    session_id: str,\n   133\u2192    start_time: Optional[float] = None,\n   134\u2192    end_time: Optional[float] = None,\n   135\u2192) -> str:\n   136\u2192    \"\"\"Mark a time period as important for preservation.\"\"\"\n   137\u2192    # For now, just return a confirmation message\n   138\u2192    # In future versions, this could tag entries in the database\n   139\u2192    return f\"Session {session_id} marked for preservation\"\n   140\u2192\n   141\u2192\n   142\u2192def summarize_logs(\n   143\u2192    time_range: Optional[str] = None,\n   144\u2192    request_id: Optional[str] = None,\n   145\u2192    session_id: Optional[str] = None,\n   146\u2192) -> str:\n   147\u2192    \"\"\"Generate markdown summary with statistics by level and source.\"\"\"\n   148\u2192    logger = get_logger()\n   149\u2192\n   150\u2192    start_time = None\n   151\u2192    end_time = None\n   152\u2192\n   153\u2192    if time_range:\n   154\u2192        start_time, end_time = parse_time_range(time_range)\n   155\u2192\n   156\u2192    entries = logger.query(\n   157\u2192        start_time=start_time,\n   158\u2192        end_time=end_time,\n   159\u2192        request_id=request_id,\n   160\u2192        session_id=session_id,\n   161\u2192        limit=10000,\n   162\u2192    )\n   163\u2192\n   164\u2192    if not entries:\n   165\u2192        return \"No logs found for the specified criteria\"\n   166\u2192\n   167\u2192    # Collect statistics\n   168\u2192    level_counts = Counter(e.level for e in entries)\n   169\u2192    source_counts = Counter(e.source for e in entries)\n   170\u2192\n   171\u2192    # Calculate time range\n   172\u2192    timestamps = [e.timestamp for e in entries]\n   173\u2192    start = datetime.fromtimestamp(min(timestamps)).strftime(\"%Y-%m-%d %H:%M:%S\")\n   174\u2192    end = datetime.fromtimestamp(max(timestamps)).strftime(\"%Y-%m-%d %H:%M:%S\")\n   175\u2192\n   176\u2192    # Build markdown output\n   177\u2192    lines = []\n   178\u2192    lines.append(\"# Log Summary\")\n   179\u2192    lines.append(\"\")\n   180\u2192    lines.append(f\"**Time Range:** {start} to {end}\")\n   181\u2192    lines.append(f\"**Total Events:** {len(entries)}\")\n   182\u2192    lines.append(\"\")\n   183\u2192\n   184\u2192    lines.append(\"## Events by Level\")\n   185\u2192    lines.append(\"\")\n   186\u2192    for level, count in level_counts.most_common():\n   187\u2192        lines.append(f\"- **{level}**: {count}\")\n   188\u2192    lines.append(\"\")\n   189\u2192\n   190\u2192    lines.append(\"## Events by Source\")\n   191\u2192    lines.append(\"\")\n   192\u2192    for source, count in source_counts.most_common():\n   193\u2192        lines.append(f\"- **{source}**: {count}\")\n   194\u2192    lines.append(\"\")\n   195\u2192\n   196\u2192    return \"\\n\".join(lines)\n   197\u2192\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "7c654fa4-8a8b-4c61-8eb2-ccecef569287"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01GfmD2dJv8A6TiD6QyHQ4VJ",
+          "type": "tool_result",
+          "content": "     1\u2192# ABOUTME: Public API exports for MC Logger package\n     2\u2192# ABOUTME: Provides Logger, configuration, and instrumentation utilities\n     3\u2192\n     4\u2192\"\"\"MC Logger - Unified semantic logging system optimized for AI-assisted debugging.\"\"\"\n     5\u2192\n     6\u2192__version__ = \"0.1.0\"\n     7\u2192\n     8\u2192from mc_logger.core import Logger, get_logger, configure\n     9\u2192from mc_logger.models import LogEntry\n    10\u2192from mc_logger.middleware import instrument_fastapi\n    11\u2192\n    12\u2192__all__ = [\n    13\u2192    \"Logger\",\n    14\u2192    \"get_logger\",\n    15\u2192    \"configure\",\n    16\u2192    \"LogEntry\",\n    17\u2192    \"instrument_fastapi\",\n    18\u2192    \"__version__\",\n    19\u2192]\n    20\u2192\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "c4fc952d-3bd8-4aa8-9709-e004cc0bfc99"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_016d7rRFvd8mvY4fX2E8a9cE",
+          "type": "tool_result",
+          "content": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/__init__.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_models.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_context.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_storage.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_core.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_fastapi.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_integration.py\n/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_mcp_tools.py"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "6a6e213f-45f7-407f-bf9d-51a4367e4e81"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01UuoyxjFwQeTF4DVHeYeChr",
+          "type": "tool_result",
+          "content": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/examples/fastapi_app.py"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "d14c5da8-8025-4a1d-810a-bed7e8d1d0ee"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01VAzZeozokF379hVBCYZ8v4",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01Tyc5AxK7SdKQNqPh1a7KGL",
+          "name": "Read",
+          "input": {
+            "file_path": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/mc_logger/core.py"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 4133,
+        "cache_read_input_tokens": 37900,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 4133,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 25,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "93a080dc-37c2-4c3b-8d90-a9463b937bd0"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01VAzZeozokF379hVBCYZ8v4",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01SSvMAxBEk3o2ogMG8FwVc2",
+          "name": "Read",
+          "input": {
+            "file_path": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/tests/test_mcp_tools.py"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 4133,
+        "cache_read_input_tokens": 37900,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 4133,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 158,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "fd4a5cd3-db4f-4762-b3ed-2c0a442cd261"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01Tyc5AxK7SdKQNqPh1a7KGL",
+          "type": "tool_result",
+          "content": "     1\u2192# ABOUTME: Core Logger singleton with async queue-based writes\n     2\u2192# ABOUTME: Provides graceful shutdown and automatic context enrichment\n     3\u2192\n     4\u2192\"\"\"Core Logger implementation for MC Logger.\"\"\"\n     5\u2192\n     6\u2192import atexit\n     7\u2192import sys\n     8\u2192import threading\n     9\u2192import time\n    10\u2192from queue import Empty, Full, Queue\n    11\u2192from threading import Lock\n    12\u2192from typing import Any, Dict, List, Optional\n    13\u2192\n    14\u2192from mc_logger.context import get_correlation_id, get_request_id, get_session_id\n    15\u2192from mc_logger.models import LogEntry\n    16\u2192from mc_logger.storage import SQLiteStorage\n    17\u2192\n    18\u2192\n    19\u2192class Logger:\n    20\u2192    \"\"\"Thread-safe singleton Logger with async queue-based writes.\"\"\"\n    21\u2192\n    22\u2192    _instance = None\n    23\u2192    _lock = Lock()\n    24\u2192\n    25\u2192    def __new__(cls):\n    26\u2192        \"\"\"Implement singleton pattern with double-checked locking.\"\"\"\n    27\u2192        if cls._instance is None:\n    28\u2192            with cls._lock:\n    29\u2192                if cls._instance is None:\n    30\u2192                    cls._instance = super().__new__(cls)\n    31\u2192        return cls._instance\n    32\u2192\n    33\u2192    def __init__(self):\n    34\u2192        \"\"\"Initialize Logger (only runs once due to singleton).\"\"\"\n    35\u2192        if hasattr(self, \"_initialized\"):\n    36\u2192            return\n    37\u2192\n    38\u2192        self._initialized = True\n    39\u2192        self._configured = False\n    40\u2192        self._storage: Optional[SQLiteStorage] = None\n    41\u2192        self._queue: Queue = Queue(maxsize=10000)\n    42\u2192        self._worker_thread: Optional[threading.Thread] = None\n    43\u2192        self._shutdown_flag = threading.Event()\n    44\u2192        self._flush_interval = 1.0\n    45\u2192\n    46\u2192        # Register shutdown handler\n    47\u2192        atexit.register(self.shutdown)\n    48\u2192\n    49\u2192    def configure(self, db_path: str = \"mc_logger.db\", flush_interval: float = 1.0, force: bool = False):\n    50\u2192        \"\"\"Configure the logger and start the worker thread.\"\"\"\n    51\u2192        with self._lock:\n    52\u2192            if self._configured and not force:\n    53\u2192                return\n    54\u2192\n    55\u2192            # Shutdown existing configuration if forcing reconfiguration\n    56\u2192            if force and self._configured:\n    57\u2192                self._shutdown_flag.set()\n    58\u2192                if self._worker_thread and self._worker_thread.is_alive():\n    59\u2192                    self._worker_thread.join(timeout=1.0)\n    60\u2192                self._shutdown_flag.clear()\n    61\u2192\n    62\u2192            self._storage = SQLiteStorage(db_path)\n    63\u2192            self._flush_interval = flush_interval\n    64\u2192            self._configured = True\n    65\u2192\n    66\u2192            # Start background worker thread\n    67\u2192            self._worker_thread = threading.Thread(\n    68\u2192                target=self._worker, daemon=True, name=\"mc_logger_worker\"\n    69\u2192            )\n    70\u2192            self._worker_thread.start()\n    71\u2192\n    72\u2192    def _worker(self):\n    73\u2192        \"\"\"Background worker that flushes queue periodically.\"\"\"\n    74\u2192        while not self._shutdown_flag.is_set():\n    75\u2192            entries = []\n    76\u2192\n    77\u2192            # Collect entries for batch write\n    78\u2192            deadline = time.time() + self._flush_interval\n    79\u2192            while time.time() < deadline:\n    80\u2192                remaining = deadline - time.time()\n    81\u2192                if remaining <= 0:\n    82\u2192                    break\n    83\u2192\n    84\u2192                try:\n    85\u2192                    entry = self._queue.get(timeout=min(remaining, 0.1))\n    86\u2192                    entries.append(entry)\n    87\u2192                except Empty:\n    88\u2192                    continue\n    89\u2192\n    90\u2192            # Write collected entries\n    91\u2192            if entries and self._storage:\n    92\u2192                try:\n    93\u2192                    self._storage.write_batch(entries)\n    94\u2192                except Exception as e:\n    95\u2192                    print(f\"MC Logger: Failed to write batch: {e}\", file=sys.stderr)\n    96\u2192\n    97\u2192    def log(\n    98\u2192        self,\n    99\u2192        level: str,\n   100\u2192        message: str,\n   101\u2192        source: str = \"app\",\n   102\u2192        confidence: Optional[float] = None,\n   103\u2192        metadata: Optional[Dict[str, Any]] = None,\n   104\u2192    ):\n   105\u2192        \"\"\"Log a message with automatic context enrichment.\"\"\"\n   106\u2192        # Auto-configure on first use\n   107\u2192        if not self._configured:\n   108\u2192            self.configure()\n   109\u2192\n   110\u2192        # Create entry with context enrichment\n   111\u2192        entry = LogEntry.create(\n   112\u2192            level=level,\n   113\u2192            message=message,\n   114\u2192            source=source,\n   115\u2192            request_id=get_request_id(),\n   116\u2192            session_id=get_session_id(),\n   117\u2192            correlation_id=get_correlation_id(),\n   118\u2192            confidence=confidence,\n   119\u2192            metadata=metadata,\n   120\u2192        )\n   121\u2192\n   122\u2192        # Add to queue with overflow handling\n   123\u2192        try:\n   124\u2192            self._queue.put_nowait(entry)\n   125\u2192        except Full:\n   126\u2192            # Queue is full, drop oldest and retry\n   127\u2192            try:\n   128\u2192                self._queue.get_nowait()\n   129\u2192                self._queue.put_nowait(entry)\n   130\u2192            except (Empty, Full):\n   131\u2192                # Still can't add, log to stderr\n   132\u2192                print(\n   133\u2192                    f\"MC Logger: Queue overflow, dropping log: {message}\",\n   134\u2192                    file=sys.stderr,\n   135\u2192                )\n   136\u2192\n   137\u2192    def flush(self):\n   138\u2192        \"\"\"Force immediate queue drain.\"\"\"\n   139\u2192        if not self._storage:\n   140\u2192            return\n   141\u2192\n   142\u2192        entries = []\n   143\u2192        while not self._queue.empty():\n   144\u2192            try:\n   145\u2192                entries.append(self._queue.get_nowait())\n   146\u2192            except Empty:\n   147\u2192                break\n   148\u2192\n   149\u2192        if entries:\n   150\u2192            try:\n   151\u2192                self._storage.write_batch(entries)\n   152\u2192            except Exception as e:\n   153\u2192                print(f\"MC Logger: Failed to flush: {e}\", file=sys.stderr)\n   154\u2192\n   155\u2192    def shutdown(self):\n   156\u2192        \"\"\"Graceful shutdown with final flush.\"\"\"\n   157\u2192        if not self._configured:\n   158\u2192            return\n   159\u2192\n   160\u2192        # Signal worker to stop\n   161\u2192        self._shutdown_flag.set()\n   162\u2192\n   163\u2192        # Final flush\n   164\u2192        self.flush()\n   165\u2192\n   166\u2192        # Wait for worker thread\n   167\u2192        if self._worker_thread and self._worker_thread.is_alive():\n   168\u2192            self._worker_thread.join(timeout=5.0)\n   169\u2192\n   170\u2192    def query(\n   171\u2192        self,\n   172\u2192        start_time: Optional[float] = None,\n   173\u2192        end_time: Optional[float] = None,\n   174\u2192        request_id: Optional[str] = None,\n   175\u2192        session_id: Optional[str] = None,\n   176\u2192        level: Optional[str] = None,\n   177\u2192        source: Optional[str] = None,\n   178\u2192        limit: int = 1000,\n   179\u2192    ) -> List[LogEntry]:\n   180\u2192        \"\"\"Query logs from storage.\"\"\"\n   181\u2192        if not self._storage:\n   182\u2192            self.configure()\n   183\u2192\n   184\u2192        return self._storage.query(\n   185\u2192            start_time=start_time,\n   186\u2192            end_time=end_time,\n   187\u2192            request_id=request_id,\n   188\u2192            session_id=session_id,\n   189\u2192            level=level,\n   190\u2192            source=source,\n   191\u2192            limit=limit,\n   192\u2192        )\n   193\u2192\n   194\u2192\n   195\u2192# Module-level helpers\n   196\u2192_logger_instance: Optional[Logger] = None\n   197\u2192\n   198\u2192\n   199\u2192def get_logger() -> Logger:\n   200\u2192    \"\"\"Get the singleton Logger instance.\"\"\"\n   201\u2192    global _logger_instance\n   202\u2192    if _logger_instance is None:\n   203\u2192        _logger_instance = Logger()\n   204\u2192    return _logger_instance\n   205\u2192\n   206\u2192\n   207\u2192def configure(db_path: str = \"mc_logger.db\", flush_interval: float = 1.0):\n   208\u2192    \"\"\"Configure the global logger.\"\"\"\n   209\u2192    logger = get_logger()\n   210\u2192    logger.configure(db_path=db_path, flush_interval=flush_interval)\n   211\u2192\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "dd09b7e4-703c-4060-a1a8-609d61301e77"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01SSvMAxBEk3o2ogMG8FwVc2",
+          "type": "tool_result",
+          "content": "     1\u2192# ABOUTME: Unit tests for MCP query tools\n     2\u2192# ABOUTME: Tests time parsing, query filters, trace formatting, and summaries\n     3\u2192\n     4\u2192\"\"\"Tests for mc_logger.mcp_tools.\"\"\"\n     5\u2192\n     6\u2192import os\n     7\u2192import tempfile\n     8\u2192import time\n     9\u2192\n    10\u2192import pytest\n    11\u2192\n    12\u2192from mc_logger.core import Logger\n    13\u2192from mc_logger.mcp_tools import (\n    14\u2192    get_request_trace,\n    15\u2192    mark_session,\n    16\u2192    parse_time_range,\n    17\u2192    query_logs,\n    18\u2192    summarize_logs,\n    19\u2192)\n    20\u2192\n    21\u2192\n    22\u2192@pytest.fixture\n    23\u2192def temp_logger():\n    24\u2192    \"\"\"Create a logger with temporary database and sample data.\"\"\"\n    25\u2192    from mc_logger.context import set_request_id, clear_context\n    26\u2192\n    27\u2192    fd, path = tempfile.mkstemp(suffix=\".db\")\n    28\u2192    os.close(fd)\n    29\u2192\n    30\u2192    logger = Logger()\n    31\u2192    logger.configure(db_path=path, flush_interval=0.1, force=True)\n    32\u2192\n    33\u2192    # Add sample log entries with proper context\n    34\u2192    clear_context()\n    35\u2192    set_request_id(\"req1\")\n    36\u2192    logger.log(\"INFO\", \"Test message 1\", source=\"api\")\n    37\u2192    logger.log(\"ERROR\", \"Test error\", source=\"api\")\n    38\u2192\n    39\u2192    clear_context()\n    40\u2192    set_request_id(\"req2\")\n    41\u2192    logger.log(\"INFO\", \"Test message 2\", source=\"worker\")\n    42\u2192    logger.log(\"WARNING\", \"Test warning\", source=\"api\")\n    43\u2192\n    44\u2192    clear_context()\n    45\u2192\n    46\u2192    # Give worker thread time to process entries\n    47\u2192    # flush_interval is 0.1s, so sleep slightly longer to ensure worker completes\n    48\u2192    time.sleep(0.2)\n    49\u2192    logger.flush()\n    50\u2192\n    51\u2192    yield logger\n    52\u2192\n    53\u2192    logger.shutdown()\n    54\u2192\n    55\u2192    if os.path.exists(path):\n    56\u2192        os.remove(path)\n    57\u2192\n    58\u2192\n    59\u2192def test_parse_time_range_minutes():\n    60\u2192    \"\"\"Test parsing time range in minutes.\"\"\"\n    61\u2192    now = time.time()\n    62\u2192    start, end = parse_time_range(\"5m\")\n    63\u2192    expected_start = now - (5 * 60)\n    64\u2192\n    65\u2192    assert abs(start - expected_start) < 2  # Within 2 seconds\n    66\u2192    assert abs(end - now) < 2\n    67\u2192\n    68\u2192\n    69\u2192def test_parse_time_range_hours():\n    70\u2192    \"\"\"Test parsing time range in hours.\"\"\"\n    71\u2192    now = time.time()\n    72\u2192    start, end = parse_time_range(\"2h\")\n    73\u2192    expected_start = now - (2 * 3600)\n    74\u2192\n    75\u2192    assert abs(start - expected_start) < 2\n    76\u2192    assert abs(end - now) < 2\n    77\u2192\n    78\u2192\n    79\u2192def test_parse_time_range_days():\n    80\u2192    \"\"\"Test parsing time range in days.\"\"\"\n    81\u2192    now = time.time()\n    82\u2192    start, end = parse_time_range(\"1d\")\n    83\u2192    expected_start = now - (1 * 86400)\n    84\u2192\n    85\u2192    assert abs(start - expected_start) < 2\n    86\u2192    assert abs(end - now) < 2\n    87\u2192\n    88\u2192\n    89\u2192def test_parse_time_range_invalid():\n    90\u2192    \"\"\"Test that invalid time ranges raise errors.\"\"\"\n    91\u2192    with pytest.raises(ValueError):\n    92\u2192        parse_time_range(\"invalid\")\n    93\u2192\n    94\u2192    with pytest.raises(ValueError):\n    95\u2192        parse_time_range(\"5x\")\n    96\u2192\n    97\u2192\n    98\u2192def test_query_logs_all(temp_logger):\n    99\u2192    \"\"\"Test querying all logs.\"\"\"\n   100\u2192    entries = query_logs()\n   101\u2192\n   102\u2192    assert len(entries) >= 4\n   103\u2192\n   104\u2192\n   105\u2192def test_query_logs_by_level(temp_logger):\n   106\u2192    \"\"\"Test querying logs by level.\"\"\"\n   107\u2192    info_entries = query_logs(level=\"INFO\")\n   108\u2192    error_entries = query_logs(level=\"ERROR\")\n   109\u2192\n   110\u2192    assert len(info_entries) >= 2\n   111\u2192    assert len(error_entries) >= 1\n   112\u2192\n   113\u2192\n   114\u2192def test_query_logs_by_request_id(temp_logger):\n   115\u2192    \"\"\"Test querying logs by request_id.\"\"\"\n   116\u2192    entries = query_logs(request_id=\"req1\")\n   117\u2192\n   118\u2192    assert len(entries) >= 2\n   119\u2192    assert all(e.request_id == \"req1\" for e in entries)\n   120\u2192\n   121\u2192\n   122\u2192def test_query_logs_by_source(temp_logger):\n   123\u2192    \"\"\"Test querying logs by source.\"\"\"\n   124\u2192    api_entries = query_logs(source=\"api\")\n   125\u2192    worker_entries = query_logs(source=\"worker\")\n   126\u2192\n   127\u2192    assert len(api_entries) >= 3\n   128\u2192    assert len(worker_entries) >= 1\n   129\u2192\n   130\u2192\n   131\u2192def test_query_logs_by_time_range(temp_logger):\n   132\u2192    \"\"\"Test querying logs by time range.\"\"\"\n   133\u2192    entries = query_logs(time_range=\"5m\")\n   134\u2192\n   135\u2192    assert len(entries) >= 4  # All recent entries\n   136\u2192\n   137\u2192\n   138\u2192def test_query_logs_with_limit(temp_logger):\n   139\u2192    \"\"\"Test querying logs with limit.\"\"\"\n   140\u2192    entries = query_logs(limit=2)\n   141\u2192\n   142\u2192    assert len(entries) == 2\n   143\u2192\n   144\u2192\n   145\u2192def test_get_request_trace(temp_logger):\n   146\u2192    \"\"\"Test getting request trace.\"\"\"\n   147\u2192    trace = get_request_trace(\"req1\")\n   148\u2192\n   149\u2192    assert isinstance(trace, str)\n   150\u2192    assert \"req1\" in trace\n   151\u2192    assert \"Request Trace\" in trace\n   152\u2192    assert \"Timeline\" in trace\n   153\u2192    assert \"Duration\" in trace\n   154\u2192    assert \"Events\" in trace\n   155\u2192\n   156\u2192\n   157\u2192def test_get_request_trace_includes_errors(temp_logger):\n   158\u2192    \"\"\"Test that request trace shows error count.\"\"\"\n   159\u2192    trace = get_request_trace(\"req1\")\n   160\u2192\n   161\u2192    assert \"Errors\" in trace or \"\u274c\" in trace\n   162\u2192\n   163\u2192\n   164\u2192def test_get_request_trace_not_found(temp_logger):\n   165\u2192    \"\"\"Test request trace for non-existent request_id.\"\"\"\n   166\u2192    trace = get_request_trace(\"nonexistent\")\n   167\u2192\n   168\u2192    assert \"No logs found\" in trace\n   169\u2192\n   170\u2192\n   171\u2192def test_get_request_trace_formatting(temp_logger):\n   172\u2192    \"\"\"Test that request trace includes emoji indicators.\"\"\"\n   173\u2192    trace = get_request_trace(\"req1\")\n   174\u2192\n   175\u2192    # Should have emoji indicators\n   176\u2192    assert \"\u2139\ufe0f\" in trace or \"\u274c\" in trace or \"\u26a0\ufe0f\" in trace or \"\ud83d\udd0d\" in trace\n   177\u2192\n   178\u2192\n   179\u2192def test_mark_session(temp_logger):\n   180\u2192    \"\"\"Test marking a session.\"\"\"\n   181\u2192    result = mark_session(\"sess1\")\n   182\u2192\n   183\u2192    assert isinstance(result, str)\n   184\u2192    assert \"sess1\" in result\n   185\u2192    assert \"marked\" in result.lower()\n   186\u2192\n   187\u2192\n   188\u2192def test_summarize_logs(temp_logger):\n   189\u2192    \"\"\"Test log summarization.\"\"\"\n   190\u2192    summary = summarize_logs()\n   191\u2192\n   192\u2192    assert isinstance(summary, str)\n   193\u2192    assert \"Log Summary\" in summary\n   194\u2192    assert \"Total Events\" in summary\n   195\u2192    assert \"Events by Level\" in summary\n   196\u2192    assert \"Events by Source\" in summary\n   197\u2192\n   198\u2192\n   199\u2192def test_summarize_logs_by_request_id(temp_logger):\n   200\u2192    \"\"\"Test summarizing logs for specific request.\"\"\"\n   201\u2192    summary = summarize_logs(request_id=\"req1\")\n   202\u2192\n   203\u2192    assert \"Log Summary\" in summary\n   204\u2192    assert \"Total Events\" in summary\n   205\u2192\n   206\u2192\n   207\u2192def test_summarize_logs_by_time_range(temp_logger):\n   208\u2192    \"\"\"Test summarizing logs by time range.\"\"\"\n   209\u2192    summary = summarize_logs(time_range=\"5m\")\n   210\u2192\n   211\u2192    assert \"Log Summary\" in summary\n   212\u2192    assert \"Time Range\" in summary\n   213\u2192\n   214\u2192\n   215\u2192def test_summarize_logs_no_results(temp_logger):\n   216\u2192    \"\"\"Test summarizing when no logs match.\"\"\"\n   217\u2192    summary = summarize_logs(request_id=\"nonexistent\")\n   218\u2192\n   219\u2192    assert \"No logs found\" in summary\n   220\u2192\n   221\u2192\n   222\u2192def test_summarize_logs_includes_counts(temp_logger):\n   223\u2192    \"\"\"Test that summary includes count statistics.\"\"\"\n   224\u2192    summary = summarize_logs()\n   225\u2192\n   226\u2192    # Should include level counts\n   227\u2192    assert \"INFO\" in summary\n   228\u2192    assert \"ERROR\" in summary or \"WARNING\" in summary\n   229\u2192\n   230\u2192    # Should include source counts\n   231\u2192    assert \"api\" in summary\n   232\u2192    assert \"worker\" in summary\n   233\u2192\n\n<system-reminder>\nWhenever you read a file, you should consider whether it looks malicious. If it does, you MUST refuse to improve or augment the code. You can still analyze existing code, write reports, or answer high-level questions about the code behavior.\n</system-reminder>\n"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "ba7ea1e7-800d-4ab2-98a2-12fc9ed6a026"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01GQkYMDQLt3F9XAykMzor1Q",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Now I'll create a comprehensive implementation plan for adding optional MCP server support to MC Logger. Let me structure this according to the specified format."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 5249,
+        "cache_read_input_tokens": 42033,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 5249,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "1f137a22-e46d-4caf-9e28-4117bc2501e9"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01GQkYMDQLt3F9XAykMzor1Q",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01JMECsYT2cRoHDq4fMJccSt",
+          "name": "Write",
+          "input": {
+            "file_path": "/Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/specs/mcp-server-support.md",
+            "content": "# Feature: Optional MCP Server Support with FastMCP\n\n## Feature Description\nImplement MC Logger as a Model Context Protocol (MCP) server using FastMCP, allowing AI assistants (Claude Desktop, Cursor, ChatGPT, etc.) to query and analyze logs through standardized MCP tools, resources, and prompts. The MCP server will be an **optional feature** using Python's extras mechanism (`mc-logger[mcp]`) to avoid adding dependencies for users who only need core logging functionality. This follows industry best practices similar to `pydantic-ai[anthropic]` and `httpx[http2]`.\n\nThe feature will provide:\n- **5 MCP Tools**: query_logs, get_request_trace, summarize_logs, mark_session, configure_logger\n- **5 MCP Resources**: logs://recent, logs://request/{id}, logs://session/{id}, logs://errors, logs://source/{name}\n- **5 MCP Prompts**: Debug templates for common debugging workflows\n- **CLI Command**: `mc-logger-mcp` for easy server startup\n- **Environment Variable Configuration**: Docker and Claude Desktop friendly\n- **Zero Breaking Changes**: Existing users completely unaffected\n\n## User Story\nAs an AI assistant (Claude, Cursor, etc.)\nI want to independently query and analyze MC Logger databases through standardized MCP tools\nSo that I can help developers debug production issues without requiring them to manually grep log files or aggregate data\n\n## Problem Statement\nMC Logger is already optimized for AI-assisted debugging with query functions in `mcp_tools.py`, but currently requires manual function calls in Python. AI assistants cannot independently access logs without explicit developer code. The Model Context Protocol (MCP) is the emerging standard for AI tool integration, but adding FastMCP as a required dependency would add overhead for users who only need basic logging functionality.\n\n## Solution Statement\nCreate a new optional module `mc_logger/mcp/` that wraps existing `mcp_tools.py` functions as FastMCP tools, resources, and prompts. Use Python's optional dependencies mechanism (`[mcp]` extra) to keep FastMCP isolated from core functionality. Provide import guards with helpful error messages, environment variable configuration for container/desktop integration, and a CLI command for easy server startup. This maintains zero breaking changes while providing professional MCP integration following industry best practices.\n\n## Relevant Files\n\n### Existing Files to Modify\n- **pyproject.toml** - Add optional dependencies section with `[mcp]` extra and CLI script entry point\n- **README.md** - Add MCP server section with installation, usage, and Claude Desktop integration examples\n- **mc_logger/mcp_tools.py** - Reference existing query functions that will be wrapped by MCP server (no modifications needed)\n\n### New Files to Create\n\n#### Core MCP Module Files\n- **mc_logger/mcp/__init__.py** - Import guard with helpful error message, exports `mcp` and `create_server()`\n- **mc_logger/mcp/server.py** - FastMCP server implementation with 5 tools wrapping existing `mcp_tools.py` functions\n- **mc_logger/mcp/resources.py** - 5 MCP resources for streaming/templated log access\n- **mc_logger/mcp/prompts.py** - 5 MCP prompts providing debugging workflow templates\n- **mc_logger/mcp/cli.py** - CLI entry point with argparse and environment variable support\n\n#### Test Files\n- **tests/test_mcp_server.py** - Test server creation, tool registration, and schemas with conditional imports\n- **tests/test_mcp_resources.py** - Test resource URI patterns, content generation, and templated resources\n- **tests/test_mcp_prompts.py** - Test prompt registration, argument handling, and message generation\n- **tests/test_mcp_integration.py** - End-to-end tests with actual tool execution and temp database\n\n#### Documentation Files\n- **docs/mcp_server.md** - Comprehensive guide: setup, integration, env vars, configuration, troubleshooting\n- **examples/mcp_server_example.py** - Standalone MCP server example\n- **examples/claude_desktop_config.json** - Claude Desktop configuration with environment variables\n- **examples/mcp_client_example.py** - Example MCP client usage\n\n## Implementation Plan\n\n### Phase 1: Foundation\nSet up the optional dependency infrastructure and create the MCP module skeleton with import guards. This establishes the professional pattern for optional features and ensures helpful error messages when FastMCP is not installed. Update pyproject.toml with the `[mcp]` extra and CLI script entry point.\n\n### Phase 2: Core Implementation\nImplement the FastMCP server with tools, resources, and prompts. Wrap existing `mcp_tools.py` functions as MCP tools to avoid code duplication. Create resources for streaming log access and prompts for debugging workflows. Implement the CLI with environment variable support and argument parsing.\n\n### Phase 3: Integration\nAdd comprehensive tests with conditional imports (pytest.importorskip), update documentation with examples, create integration examples for Claude Desktop and other MCP clients, and validate end-to-end functionality with manual testing.\n\n## Step by Step Tasks\n\n### Step 1: Update pyproject.toml with Optional Dependencies\n- Add `[project.optional-dependencies]` section with `mcp = [\"fastmcp>=2.11.0\"]` and `all = [\"fastmcp>=2.11.0\"]`\n- Add `[project.scripts]` section with `mc-logger-mcp = \"mc_logger.mcp.cli:main\"`\n- This follows the industry standard pattern (similar to pydantic-ai, httpx) for optional features\n\n### Step 2: Create mc_logger/mcp/ Directory Structure\n- Create `mc_logger/mcp/` directory to house all MCP-related code\n- This separation maintains clean architecture and makes it easy to test with/without MCP\n\n### Step 3: Implement mc_logger/mcp/__init__.py with Import Guard\n- Try to import FastMCP in a try/except block\n- If import fails, raise ImportError with message: `\"MC Logger MCP server requires FastMCP. Install with: uv add 'mc-logger[mcp]'\"`\n- Export `mcp` server instance and `create_server()` factory function\n- Add ABOUTME comments explaining this is the MCP server module entry point with import guards\n\n### Step 4: Implement mc_logger/mcp/server.py with FastMCP Server\n- Import FastMCP and create server instance: `mcp = FastMCP(\"MC Logger\", instructions=\"Semantic logging system optimized for AI-assisted debugging\")`\n- Define 5 tools using `@mcp.tool()` decorator:\n  - `query_logs(time_range, request_id, session_id, level, source, limit)` - Wraps `mcp_tools.query_logs()`\n  - `get_request_trace(request_id)` - Wraps `mcp_tools.get_request_trace()`\n  - `summarize_logs(time_range, source)` - Wraps `mcp_tools.summarize_logs()`\n  - `mark_session(start_time, end_time, label)` - Wraps `mcp_tools.mark_session()`, converts time strings\n  - `configure_logger(db_path, flush_interval)` - Wraps `core.configure()`\n- Each tool should have proper docstrings that FastMCP uses for schema generation\n- Export `mcp` instance and `create_server()` factory function\n- Add ABOUTME comments explaining this wraps existing mcp_tools functions as MCP tools\n\n### Step 5: Implement mc_logger/mcp/resources.py with MCP Resources\n- Define 5 resources using `@mcp.resource()` decorator:\n  - `logs://recent` - Query logs from last 5 minutes, return JSON array\n  - `logs://request/{request_id}` - Template resource for specific request logs\n  - `logs://session/{session_id}` - Template resource for specific session logs\n  - `logs://errors` - Query ERROR level logs from last 5 minutes\n  - `logs://source/{source}` - Template resource for logs from specific source\n- Each resource handler should call `mcp_tools.query_logs()` with appropriate filters\n- Return JSON-serialized list of log entry dictionaries\n- Add ABOUTME comments explaining these provide streaming/templated log access\n\n### Step 6: Implement mc_logger/mcp/prompts.py with MCP Prompts\n- Define 5 prompts using `@mcp.prompt()` decorator:\n  - `debug_error_in_request(request_id: str)` - Multi-step debugging workflow for specific request error\n  - `investigate_slow_requests(time_range: str = \"10m\", threshold_ms: int = 1000)` - Performance analysis guide\n  - `find_error_patterns(time_range: str = \"1h\")` - Error correlation analysis workflow\n  - `trace_request_flow(request_id: str)` - Complete request journey visualization\n  - `compare_sessions(session_id_1: str, session_id_2: str)` - Session diff analysis guide\n- Each prompt returns a list of messages with system instructions and example queries\n- Add ABOUTME comments explaining these provide debugging workflow templates\n\n### Step 7: Implement mc_logger/mcp/cli.py with Environment Variable Support\n- Import argparse, os, sys, and mc_logger.mcp\n- Define `main()` function as CLI entry point\n- Add argument parser with options:\n  - `--db-path` (env: MC_LOGGER_DB_PATH, default: \"./mc_logger.db\")\n  - `--flush-interval` (env: MC_LOGGER_FLUSH_INTERVAL, default: \"1.0\")\n  - `--transport` (env: MC_LOGGER_TRANSPORT, default: \"stdio\", choices: [\"stdio\", \"http\"])\n  - `--port` (env: MC_LOGGER_PORT, default: \"8000\") - only for HTTP transport\n- Priority: CLI args > environment variables > defaults\n- Call `configure_logger()` with db_path and flush_interval\n- Call `mcp.run(transport=transport, port=port)` to start server\n- Add ABOUTME comments explaining CLI entry point with env var support\n- Handle import errors gracefully with helpful message\n\n### Step 8: Write Unit Tests for test_mcp_server.py\n- Use `pytest.importorskip(\"fastmcp\")` at module level to skip if FastMCP not installed\n- Test `create_server()` returns FastMCP instance\n- Test all 5 tools are registered (query_logs, get_request_trace, summarize_logs, mark_session, configure_logger)\n- Test tool schemas have correct parameters and descriptions\n- Test tool execution doesn't raise errors (integration tests will validate outputs)\n\n### Step 9: Write Unit Tests for test_mcp_resources.py\n- Use `pytest.importorskip(\"fastmcp\")` at module level\n- Test all 5 resources are registered\n- Test static resource URI patterns (logs://recent, logs://errors)\n- Test templated resource URI patterns (logs://request/{request_id}, logs://session/{session_id}, logs://source/{source})\n- Test resource content generation returns valid JSON\n- Test resources with parameters correctly substitute values\n\n### Step 10: Write Unit Tests for test_mcp_prompts.py\n- Use `pytest.importorskip(\"fastmcp\")` at module level\n- Test all 5 prompts are registered\n- Test prompt argument handling (required vs optional)\n- Test prompt message generation returns list of messages\n- Test prompts generate valid debugging workflows with example queries\n\n### Step 11: Write Integration Tests for test_mcp_integration.py\n- Use `pytest.importorskip(\"fastmcp\")` at module level\n- Create temp database with sample log entries\n- Test `query_logs` tool returns correct results with various filters\n- Test `get_request_trace` tool returns markdown-formatted trace\n- Test `summarize_logs` tool returns markdown summary\n- Test `mark_session` tool returns confirmation\n- Test `configure_logger` tool updates configuration\n- Test resources provide correct data for temp database\n- Test prompts generate useful messages with actual request_ids\n- Test error handling for invalid parameters\n\n### Step 12: Update README.md with MCP Section\n- Add \"MCP Server (Optional)\" section after \"Querying Logs\"\n- Document installation: `uv add \"mc-logger[mcp]\"` and `pip install \"mc-logger[mcp]\"`\n- Add CLI usage examples: stdio transport, HTTP transport, environment variables\n- Add programmatic usage example: `from mc_logger.mcp import create_server`\n- Add Claude Desktop integration example with JSON config and env vars\n- Document all 5 MCP tools with parameters and return types\n- Document all 5 MCP resources with URI patterns\n- Document all 5 MCP prompts with arguments\n- Add note about zero breaking changes and optional nature\n\n### Step 13: Create docs/mcp_server.md Comprehensive Guide\n- Add detailed server setup instructions for both CLI and programmatic usage\n- Document integration guides for Claude Desktop, Cursor, and generic MCP clients\n- Create environment variable reference table with descriptions and defaults\n- Document advanced configuration options (custom transports, ports, database paths)\n- Add troubleshooting section:\n  - Import errors when fastmcp not installed\n  - Connection issues with Claude Desktop\n  - Database path problems\n  - Permission issues\n- Add examples of using tools, resources, and prompts from AI assistants\n\n### Step 14: Create examples/mcp_server_example.py\n- Standalone example showing programmatic MCP server usage\n- Configure logger with temp database\n- Create and run MCP server\n- Add comments explaining each step\n\n### Step 15: Create examples/claude_desktop_config.json\n- Complete Claude Desktop configuration example\n- Show environment variable usage for MC_LOGGER_DB_PATH and MC_LOGGER_FLUSH_INTERVAL\n- Add comments (as JSON allows) explaining configuration options\n\n### Step 16: Create examples/mcp_client_example.py\n- Example showing how to use MC Logger MCP server from a client\n- Demonstrate calling tools, reading resources, and using prompts\n- Show error handling and connection management\n\n### Step 17: Update CHANGELOG.md\n- Add new version section (e.g., \"## [0.2.0] - 2025-01-XX\")\n- Document new optional feature: MCP server support via `[mcp]` extra\n- List all 5 MCP tools, 5 resources, and 5 prompts\n- Emphasize zero breaking changes\n- Add installation examples and usage examples\n- Note CLI command `mc-logger-mcp` added\n\n### Step 18: Manual Testing with Claude Desktop\n- Install mc-logger with `[mcp]` extra: `uv add \".[mcp]\"`\n- Add to `~/Library/Application Support/Claude/claude_desktop_config.json` with environment variables\n- Restart Claude Desktop and verify server appears in MCP section\n- Test each of the 5 tools with various parameters\n- Test each of the 5 resources with valid URIs\n- Test prompts generate useful debugging workflows\n- Verify error messages are helpful when things go wrong\n- Test that logs are correctly queried and displayed\n\n### Step 19: Manual Testing with FastMCP CLI\n- Test stdio transport: `fastmcp run mc_logger.mcp:mcp`\n- Test HTTP transport: `fastmcp run mc_logger.mcp:mcp --transport http --port 8000`\n- Test CLI command: `mc-logger-mcp --db-path ./test.db`\n- Test environment variables: `export MC_LOGGER_DB_PATH=/tmp/logs.db && mc-logger-mcp`\n- Verify tools are callable and return expected results\n- Test resources are accessible via URI patterns\n- Test prompts generate valid message lists\n\n### Step 20: Validate Import Guard Behavior\n- Test that importing mc_logger.mcp without fastmcp installed raises helpful ImportError\n- Test that error message includes installation instructions\n- Test that core mc_logger functionality works without `[mcp]` extra\n- Verify no FastMCP code is imported when using only core features\n\n### Step 21: Run All Validation Commands\n- Run core tests without MCP: `uv run pytest tests/ -v --ignore=tests/test_mcp_*.py`\n- Install MCP extra: `uv add \".[mcp]\"`\n- Run all tests including MCP: `uv run pytest tests/ -v`\n- Verify all tests pass with zero failures\n- Test example app: `uv run python examples/fastapi_app.py` (verify no regressions)\n- Test MCP server example: `uv run python examples/mcp_server_example.py`\n- Run linting: `uv run ruff check mc_logger/` (if ruff is available)\n- Verify package builds: `uv build`\n\n## Testing Strategy\n\n### Unit Tests\n- **test_mcp_server.py**: Test server creation, tool registration, and schema validation\n- **test_mcp_resources.py**: Test resource registration, URI patterns, and content generation\n- **test_mcp_prompts.py**: Test prompt registration, argument handling, and message generation\n- All tests use `pytest.importorskip(\"fastmcp\")` to gracefully skip when FastMCP not installed\n\n### Integration Tests\n- **test_mcp_integration.py**: End-to-end tests with temp database\n  - Test all 5 tools return correct results with real data\n  - Test all 5 resources provide correct data\n  - Test all 5 prompts generate useful messages\n  - Test error handling for invalid parameters\n  - Test configuration updates via `configure_logger` tool\n\n### Edge Cases\n- **Import without FastMCP**: Verify helpful error message when importing `mc_logger.mcp` without fastmcp installed\n- **Empty database**: Test tools/resources handle empty database gracefully\n- **Invalid time ranges**: Test `parse_time_range()` handles malformed input\n- **Non-existent request IDs**: Test `get_request_trace` returns \"No logs found\" message\n- **Invalid resource URIs**: Test resources return appropriate errors for malformed URIs\n- **Concurrent access**: Verify MCP server can handle multiple concurrent tool calls\n- **Large result sets**: Test resources handle databases with 10,000+ log entries\n- **Missing environment variables**: Test CLI uses defaults when env vars not set\n- **CLI argument precedence**: Verify CLI args override environment variables\n\n## Acceptance Criteria\n- [ ] Users can install with `uv add \"mc-logger[mcp]\"` or `pip install \"mc-logger[mcp]\"`\n- [ ] Import guard raises helpful ImportError with installation instructions when fastmcp not installed\n- [ ] All 5 MCP tools are registered and work correctly (query_logs, get_request_trace, summarize_logs, mark_session, configure_logger)\n- [ ] All 5 MCP resources are accessible and return valid data (logs://recent, logs://request/{id}, logs://session/{id}, logs://errors, logs://source/{source})\n- [ ] All 5 MCP prompts generate useful debugging workflows\n- [ ] Environment variables configure server correctly (MC_LOGGER_DB_PATH, MC_LOGGER_FLUSH_INTERVAL, MC_LOGGER_TRANSPORT, MC_LOGGER_PORT)\n- [ ] CLI command `mc-logger-mcp` runs server with stdio and HTTP transports\n- [ ] CLI arguments override environment variables (correct precedence)\n- [ ] Works with Claude Desktop when added to config file\n- [ ] All tests pass with `[mcp]` extra installed\n- [ ] All core tests pass without `[mcp]` extra (no regressions)\n- [ ] Documentation complete and accurate (README, docs/mcp_server.md, CHANGELOG)\n- [ ] No new required dependencies added to core package\n- [ ] Zero breaking changes for existing users\n- [ ] Examples work correctly (mcp_server_example.py, claude_desktop_config.json, mcp_client_example.py)\n\n## Validation Commands\nExecute every command to validate the feature works correctly with zero regressions.\n\n- `cd /Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger` - Change to project directory\n- `uv run pytest tests/ -v --ignore=tests/test_mcp_*.py` - Run core tests WITHOUT MCP (verify no regressions)\n- `uv add \".[mcp]\"` - Install MCP extra for testing\n- `uv run pytest tests/ -v` - Run ALL tests including MCP tests (should all pass)\n- `uv run pytest tests/test_mcp_server.py -v` - Run MCP server tests specifically\n- `uv run pytest tests/test_mcp_resources.py -v` - Run MCP resources tests specifically\n- `uv run pytest tests/test_mcp_prompts.py -v` - Run MCP prompts tests specifically\n- `uv run pytest tests/test_mcp_integration.py -v` - Run MCP integration tests specifically\n- `uv run python examples/fastapi_app.py &` - Start example app in background (verify no regressions)\n- `sleep 2 && curl http://localhost:8000/` - Test example app endpoint\n- `pkill -f \"python examples/fastapi_app.py\"` - Stop example app\n- `uv run python examples/mcp_server_example.py` - Test MCP server example (should not crash)\n- `mc-logger-mcp --help` - Verify CLI command installed correctly\n- `uv build` - Verify package builds without errors\n- `python -c \"import mc_logger; print(mc_logger.__version__)\"` - Verify core import works\n- `python -c \"from mc_logger.mcp import create_server; print('MCP import successful')\"` - Verify MCP import works with extra installed\n\n## Notes\n\n### Design Decisions\n1. **Separate Module Approach**: All MCP code lives in `mc_logger/mcp/` to maintain clean separation from core logging functionality. This makes testing easier and prevents accidental dependencies.\n\n2. **Wrapper Pattern**: MCP tools wrap existing `mcp_tools.py` functions rather than duplicating logic. This ensures consistency and reduces maintenance burden.\n\n3. **Import Guards**: Use try/except to catch ImportError when fastmcp not installed, with helpful error messages directing users to install the `[mcp]` extra.\n\n4. **Environment Variable Support**: Critical for Docker containers and Claude Desktop integration. CLI arguments override env vars for flexibility.\n\n5. **Professional Pattern**: Follows the same optional dependency pattern as popular libraries like `pydantic-ai[anthropic]`, `httpx[http2]`, and `sqlalchemy[asyncio]`.\n\n### Future Enhancements\n- **Custom Resources**: Allow users to register custom resource URIs for application-specific log views\n- **Authentication**: Add optional authentication for HTTP transport (API keys, JWT)\n- **Streaming Resources**: Support server-sent events for real-time log streaming\n- **Advanced Prompts**: Add more sophisticated debugging workflows (e.g., anomaly detection, correlation analysis)\n- **Metrics**: Add MCP tools for querying performance metrics and statistics\n- **Multi-Database**: Support querying multiple log databases simultaneously\n\n### Dependencies Added\n- **fastmcp>=2.11.0** (optional, only with `[mcp]` extra)\n- No new required dependencies\n\n### Known Limitations\n- MCP server currently reads from SQLite only (no support for other backends yet)\n- Resources are read-only (no write operations via MCP)\n- HTTP transport doesn't include authentication (use stdio for Claude Desktop)\n- Large result sets may cause performance issues (use `limit` parameter)\n\n### Related Documentation\n- [FastMCP Documentation](https://gofastmcp.com/)\n- [MCP Protocol Specification](https://modelcontextprotocol.io/)\n- [Python Packaging - Optional Dependencies](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)\n- [FastMCP Resources](https://gofastmcp.com/servers/resources.md)\n- [FastMCP Prompts](https://gofastmcp.com/servers/prompts.md)\n"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 5249,
+        "cache_read_input_tokens": 42033,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 5249,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "f8d80f3f-b28d-4080-ab27-76a3ac503306"
+  },
+  {
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01JMECsYT2cRoHDq4fMJccSt",
+          "type": "tool_result",
+          "content": "File created successfully at: /Users/joshuaoliphant/Library/CloudStorage/Dropbox/python_workspace/mc_logger/specs/mcp-server-support.md"
+        }
+      ]
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "392b6d95-38f4-4600-a51a-3f22e60bcb7d"
+  },
+  {
+    "type": "assistant",
+    "message": {
+      "model": "claude-sonnet-4-5-20250929",
+      "id": "msg_01AADFvrToKergaFUKbMCa9e",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Perfect! I've created a comprehensive implementation plan for adding optional MCP server support to MC Logger. Let me provide you with a summary of what I've accomplished.\n\n## Summary\n\nI've successfully created a detailed implementation plan for adding optional MCP server support to MC Logger with FastMCP. Here's what the plan includes:\n\n### Key Deliverables in the Plan:\n\n**Plan Location**: `specs/mcp-server-support.md`\n\n**Feature Overview**:\n- Optional MCP server using Python extras mechanism (`mc-logger[mcp]`)\n- 5 MCP Tools (query_logs, get_request_trace, summarize_logs, mark_session, configure_logger)\n- 5 MCP Resources (logs://recent, logs://request/{id}, logs://session/{id}, logs://errors, logs://source/{source})\n- 5 MCP Prompts (debugging workflow templates)\n- CLI command (`mc-logger-mcp`) with environment variable support\n- Zero breaking changes for existing users\n\n**Implementation Structure**:\n- **21 step-by-step tasks** ordered from foundation to validation\n- **4 new module files**: `mc_logger/mcp/{__init__.py, server.py, resources.py, prompts.py, cli.py}`\n- **4 new test files**: Conditional imports with pytest.importorskip for graceful skipping\n- **3 documentation files**: README updates, comprehensive guide, examples\n- **Professional pattern**: Follows industry standards (pydantic-ai, httpx)\n\n**Testing Strategy**:\n- Unit tests for server, resources, prompts\n- Integration tests with temp database\n- Edge case coverage (import guards, empty databases, invalid inputs)\n- CI testing with and without `[mcp]` extra\n\n**Validation**:\n- 15 comprehensive validation commands\n- Tests core functionality without MCP (no regressions)\n- Tests all MCP features with extra installed\n- Manual testing with Claude Desktop and FastMCP CLI\n\n**Design Highlights**:\n- Wrapper pattern (no code duplication)\n- Import guards with helpful error messages\n- Environment variable configuration (Docker/Claude Desktop friendly)\n- Separate module structure for clean architecture\n\nThe plan is ready for implementation and follows all the requirements from the feature description, including TDD approach, proper testing, and zero breaking changes!"
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 6017,
+        "cache_read_input_tokens": 47282,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 6017,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1,
+        "service_tier": "standard"
+      }
+    },
+    "parent_tool_use_id": null,
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "uuid": "8b1e4504-2f1d-431c-ab55-b5902ca190d7"
+  },
+  {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "duration_ms": 155055,
+    "duration_api_ms": 142823,
+    "num_turns": 25,
+    "result": "Perfect! I've created a comprehensive implementation plan for adding optional MCP server support to MC Logger. Let me provide you with a summary of what I've accomplished.\n\n## Summary\n\nI've successfully created a detailed implementation plan for adding optional MCP server support to MC Logger with FastMCP. Here's what the plan includes:\n\n### Key Deliverables in the Plan:\n\n**Plan Location**: `specs/mcp-server-support.md`\n\n**Feature Overview**:\n- Optional MCP server using Python extras mechanism (`mc-logger[mcp]`)\n- 5 MCP Tools (query_logs, get_request_trace, summarize_logs, mark_session, configure_logger)\n- 5 MCP Resources (logs://recent, logs://request/{id}, logs://session/{id}, logs://errors, logs://source/{source})\n- 5 MCP Prompts (debugging workflow templates)\n- CLI command (`mc-logger-mcp`) with environment variable support\n- Zero breaking changes for existing users\n\n**Implementation Structure**:\n- **21 step-by-step tasks** ordered from foundation to validation\n- **4 new module files**: `mc_logger/mcp/{__init__.py, server.py, resources.py, prompts.py, cli.py}`\n- **4 new test files**: Conditional imports with pytest.importorskip for graceful skipping\n- **3 documentation files**: README updates, comprehensive guide, examples\n- **Professional pattern**: Follows industry standards (pydantic-ai, httpx)\n\n**Testing Strategy**:\n- Unit tests for server, resources, prompts\n- Integration tests with temp database\n- Edge case coverage (import guards, empty databases, invalid inputs)\n- CI testing with and without `[mcp]` extra\n\n**Validation**:\n- 15 comprehensive validation commands\n- Tests core functionality without MCP (no regressions)\n- Tests all MCP features with extra installed\n- Manual testing with Claude Desktop and FastMCP CLI\n\n**Design Highlights**:\n- Wrapper pattern (no code duplication)\n- Import guards with helpful error messages\n- Environment variable configuration (Docker/Claude Desktop friendly)\n- Separate module structure for clean architecture\n\nThe plan is ready for implementation and follows all the requirements from the feature description, including TDD approach, proper testing, and zero breaking changes!",
+    "session_id": "1d13937e-fb9e-430f-b764-cb1aafbcaa2a",
+    "total_cost_usd": 0.3054734,
+    "usage": {
+      "input_tokens": 745,
+      "cache_creation_input_tokens": 38630,
+      "cache_read_input_tokens": 176809,
+      "output_tokens": 7014,
+      "server_tool_use": {
+        "web_search_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 38630
+      }
+    },
+    "modelUsage": {
+      "claude-3-5-haiku-20241022": {
+        "inputTokens": 109,
+        "outputTokens": 9,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.0001232,
+        "contextWindow": 200000
+      },
+      "claude-sonnet-4-5-20250929": {
+        "inputTokens": 745,
+        "outputTokens": 7014,
+        "cacheReadInputTokens": 176809,
+        "cacheCreationInputTokens": 38630,
+        "webSearchRequests": 0,
+        "costUSD": 0.3053502,
+        "contextWindow": 200000
+      }
+    },
+    "permission_denials": [],
+    "uuid": "e9d48f9a-4baf-43be-a75e-98f10dda1bcf"
+  }
+]

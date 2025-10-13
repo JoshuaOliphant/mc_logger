@@ -17,8 +17,62 @@ from data_types import (
 # Load environment variables
 load_dotenv()
 
-# Get Claude Code CLI path from environment
-CLAUDE_PATH = os.getenv("CLAUDE_CODE_PATH", "claude")
+
+def find_claude_cli_path() -> str:
+    """Auto-detect Claude Code CLI path.
+
+    Searches in order:
+    1. CLAUDE_CODE_PATH environment variable (if set)
+    2. Common installation locations
+    3. PATH lookup (works with shell aliases via which command)
+
+    Returns:
+        Path to Claude Code CLI executable
+    """
+    # First check environment variable
+    env_path = os.getenv("CLAUDE_CODE_PATH")
+    if env_path:
+        return env_path
+
+    # Check common installation locations
+    home = os.path.expanduser("~")
+    common_locations = [
+        os.path.join(home, ".claude", "local", "claude"),
+        os.path.join(home, ".local", "bin", "claude"),
+        os.path.join(home, ".local", "bin", "claude-code"),
+        "/usr/local/bin/claude",
+        "/usr/local/bin/claude-code",
+    ]
+
+    for location in common_locations:
+        if os.path.isfile(location) and os.access(location, os.X_OK):
+            return location
+
+    # Try using shell to resolve aliases
+    for cmd_name in ["claude", "claude-code"]:
+        try:
+            result = subprocess.run(
+                ["which", cmd_name],
+                capture_output=True,
+                text=True,
+                shell=False
+            )
+            if result.returncode == 0:
+                path = result.stdout.strip()
+                # Handle "aliased to" output
+                if "aliased to" in path:
+                    path = path.split("aliased to")[-1].strip()
+                if path and os.path.isfile(path):
+                    return path
+        except Exception:
+            continue
+
+    # Default fallback - let subprocess try to find it in PATH
+    return "claude"
+
+
+# Get Claude Code CLI path from environment or auto-detect
+CLAUDE_PATH = find_claude_cli_path()
 
 
 def check_claude_installed() -> Optional[str]:

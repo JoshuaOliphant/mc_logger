@@ -21,9 +21,9 @@ Workflow:
    - Commit: "feature: implement #{number} - {title}"
 5. Create PR with full context
 
-Environment Requirements:
-- ANTHROPIC_API_KEY: Anthropic API key
-- CLAUDE_CODE_PATH: Path to Claude CLI
+Environment Variables (All Optional):
+- ANTHROPIC_API_KEY: (Optional) Anthropic API key - only needed for remote deployments (uses Max subscription locally)
+- CLAUDE_CODE_PATH: (Optional) Path to Claude CLI - auto-detected if not set
 - GITHUB_PAT: (Optional) GitHub Personal Access Token - only if using a different account than 'gh auth login'
 """
 
@@ -57,24 +57,18 @@ AGENT_PR_CREATOR = "pr_creator"
 
 
 def check_env_vars(logger: Optional[logging.Logger] = None) -> None:
-    """Check that all required environment variables are set."""
-    required_vars = [
-        "ANTHROPIC_API_KEY",
-        "CLAUDE_CODE_PATH",
-    ]
-    missing_vars = [var for var in required_vars if not os.getenv(var)]
+    """Check environment variables.
 
-    if missing_vars:
-        error_msg = "Error: Missing required environment variables:"
-        if logger:
-            logger.error(error_msg)
-            for var in missing_vars:
-                logger.error(f"  - {var}")
-        else:
-            print(error_msg, file=sys.stderr)
-            for var in missing_vars:
-                print(f"  - {var}", file=sys.stderr)
-        sys.exit(1)
+    Note: All environment variables are now optional:
+    - ANTHROPIC_API_KEY: Only needed for remote deployments (uses Max subscription locally)
+    - CLAUDE_CODE_PATH: Auto-detected by agent.py
+    - GITHUB_PAT: Only needed if using different account than 'gh auth login'
+    """
+    # No required vars - everything is optional or auto-detected
+    # ANTHROPIC_API_KEY: Uses Max subscription locally
+    # CLAUDE_CODE_PATH: Auto-detected
+    # GITHUB_PAT: Uses 'gh auth login' by default
+    pass
 
 
 def parse_args(logger: Optional[logging.Logger] = None) -> Tuple[str, Optional[str]]:
