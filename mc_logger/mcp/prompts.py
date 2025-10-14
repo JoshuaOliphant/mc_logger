@@ -10,25 +10,33 @@ with instructions and example queries.
 
 from typing import List
 
+from fastmcp import FastMCP
 from fastmcp.prompts import Message
 
-from mc_logger.mcp.server import mcp
 
+def register_prompts(mcp: FastMCP) -> None:
+    """Register all MCP prompts with the given FastMCP instance.
 
-@mcp.prompt()
-def debug_error_in_request(request_id: str) -> List[Message]:
-    """Multi-step debugging workflow for investigating an error in a specific request.
+    This function must be called after the mcp instance is created to avoid circular imports.
 
     Args:
-        request_id: The request ID that encountered an error
-
-    Returns:
-        List of messages guiding the debugging process
+        mcp: The FastMCP server instance to register prompts with
     """
-    return [
-        Message(
-            role="user",
-            content=f"""I need to debug an error in request {request_id}. Let's investigate systematically:
+
+    @mcp.prompt()
+    def debug_error_in_request(request_id: str) -> List[Message]:
+        """Multi-step debugging workflow for investigating an error in a specific request.
+
+        Args:
+            request_id: The request ID that encountered an error
+
+        Returns:
+            List of messages guiding the debugging process
+        """
+        return [
+            Message(
+                role="user",
+                content=f"""I need to debug an error in request {request_id}. Let's investigate systematically:
 
 1. First, get the complete request trace:
    get_request_trace("{request_id}")
@@ -46,25 +54,24 @@ def debug_error_in_request(request_id: str) -> List[Message]:
 
 5. Finally, suggest the root cause and potential fixes based on the log evidence.
 """,
-        )
-    ]
+            )
+        ]
 
+    @mcp.prompt()
+    def investigate_slow_requests(time_range: str = "10m", threshold_ms: int = 1000) -> List[Message]:
+        """Performance analysis workflow for finding and diagnosing slow requests.
 
-@mcp.prompt()
-def investigate_slow_requests(time_range: str = "10m", threshold_ms: int = 1000) -> List[Message]:
-    """Performance analysis workflow for finding and diagnosing slow requests.
+        Args:
+            time_range: Time range to analyze (default: "10m")
+            threshold_ms: Threshold in milliseconds to consider a request slow (default: 1000)
 
-    Args:
-        time_range: Time range to analyze (default: "10m")
-        threshold_ms: Threshold in milliseconds to consider a request slow (default: 1000)
-
-    Returns:
-        List of messages guiding the performance analysis
-    """
-    return [
-        Message(
-            role="user",
-            content=f"""I need to investigate slow requests in the last {time_range}. Performance threshold: {threshold_ms}ms.
+        Returns:
+            List of messages guiding the performance analysis
+        """
+        return [
+            Message(
+                role="user",
+                content=f"""I need to investigate slow requests in the last {time_range}. Performance threshold: {threshold_ms}ms.
 
 1. First, get all requests from the time range:
    summarize_logs(time_range="{time_range}")
@@ -84,24 +91,23 @@ def investigate_slow_requests(time_range: str = "10m", threshold_ms: int = 1000)
 
 5. Summarize findings with recommendations for optimization.
 """,
-        )
-    ]
+            )
+        ]
 
+    @mcp.prompt()
+    def find_error_patterns(time_range: str = "1h") -> List[Message]:
+        """Error correlation analysis workflow for identifying patterns in failures.
 
-@mcp.prompt()
-def find_error_patterns(time_range: str = "1h") -> List[Message]:
-    """Error correlation analysis workflow for identifying patterns in failures.
+        Args:
+            time_range: Time range to analyze (default: "1h")
 
-    Args:
-        time_range: Time range to analyze (default: "1h")
-
-    Returns:
-        List of messages guiding the pattern analysis
-    """
-    return [
-        Message(
-            role="user",
-            content=f"""I need to find error patterns in the last {time_range}.
+        Returns:
+            List of messages guiding the pattern analysis
+        """
+        return [
+            Message(
+                role="user",
+                content=f"""I need to find error patterns in the last {time_range}.
 
 1. First, get all ERROR level logs:
    query_logs(time_range="{time_range}", level="ERROR", limit=1000)
@@ -129,24 +135,23 @@ def find_error_patterns(time_range: str = "1h") -> List[Message]:
    - Infrastructure issues
    - Sudden load spikes
 """,
-        )
-    ]
+            )
+        ]
 
+    @mcp.prompt()
+    def trace_request_flow(request_id: str) -> List[Message]:
+        """Complete request journey visualization from entry to completion.
 
-@mcp.prompt()
-def trace_request_flow(request_id: str) -> List[Message]:
-    """Complete request journey visualization from entry to completion.
+        Args:
+            request_id: The request ID to trace
 
-    Args:
-        request_id: The request ID to trace
-
-    Returns:
-        List of messages guiding the trace visualization
-    """
-    return [
-        Message(
-            role="user",
-            content=f"""I need to visualize the complete flow for request {request_id}.
+        Returns:
+            List of messages guiding the trace visualization
+        """
+        return [
+            Message(
+                role="user",
+                content=f"""I need to visualize the complete flow for request {request_id}.
 
 1. Get the full timeline:
    get_request_trace("{request_id}")
@@ -176,25 +181,24 @@ def trace_request_flow(request_id: str) -> List[Message]:
 
 6. Provide optimization recommendations if applicable.
 """,
-        )
-    ]
+            )
+        ]
 
+    @mcp.prompt()
+    def compare_sessions(session_id_1: str, session_id_2: str) -> List[Message]:
+        """Session diff analysis guide for comparing two user sessions.
 
-@mcp.prompt()
-def compare_sessions(session_id_1: str, session_id_2: str) -> List[Message]:
-    """Session diff analysis guide for comparing two user sessions.
+        Args:
+            session_id_1: First session ID to compare
+            session_id_2: Second session ID to compare
 
-    Args:
-        session_id_1: First session ID to compare
-        session_id_2: Second session ID to compare
-
-    Returns:
-        List of messages guiding the session comparison
-    """
-    return [
-        Message(
-            role="user",
-            content=f"""I need to compare two sessions to understand their differences.
+        Returns:
+            List of messages guiding the session comparison
+        """
+        return [
+            Message(
+                role="user",
+                content=f"""I need to compare two sessions to understand their differences.
 
 Session 1: {session_id_1}
 Session 2: {session_id_2}
@@ -225,5 +229,5 @@ Session 2: {session_id_2}
    - Whether one session represents expected behavior
    - Recommendations for investigation
 """,
-        )
-    ]
+            )
+        ]

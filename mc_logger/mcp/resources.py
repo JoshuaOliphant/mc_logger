@@ -10,149 +10,99 @@ Resources support both static URIs (logs://recent) and templated URIs (logs://re
 import json
 from typing import List
 
+from fastmcp import FastMCP
+
 from mc_logger import mcp_tools
-from mc_logger.mcp.server import mcp
 
 
-@mcp.resource("logs://recent")
-def get_recent_logs() -> str:
-    """Get logs from the last 5 minutes as JSON array.
+def register_resources(mcp: FastMCP) -> None:
+    """Register all MCP resources with the given FastMCP instance.
 
-    Returns:
-        JSON array of log entries from the last 5 minutes
-    """
-    entries = mcp_tools.query_logs(time_range="5m", limit=1000)
-
-    # Convert LogEntry objects to dictionaries
-    log_dicts = [
-        {
-            "timestamp": entry.timestamp,
-            "level": entry.level,
-            "message": entry.message,
-            "source": entry.source,
-            "request_id": entry.request_id,
-            "session_id": entry.session_id,
-            "correlation_id": entry.correlation_id,
-            "metadata": entry.metadata,
-        }
-        for entry in entries
-    ]
-
-    return json.dumps(log_dicts, indent=2)
-
-
-@mcp.resource("logs://request/{request_id}")
-def get_request_logs(request_id: str) -> str:
-    """Get all logs for a specific request ID as JSON array.
+    This function must be called after the mcp instance is created to avoid circular imports.
 
     Args:
-        request_id: The request ID to query
-
-    Returns:
-        JSON array of log entries for the specified request
+        mcp: The FastMCP server instance to register resources with
     """
-    entries = mcp_tools.query_logs(request_id=request_id, limit=10000)
 
-    # Convert LogEntry objects to dictionaries
-    log_dicts = [
-        {
-            "timestamp": entry.timestamp,
-            "level": entry.level,
-            "message": entry.message,
-            "source": entry.source,
-            "request_id": entry.request_id,
-            "session_id": entry.session_id,
-            "correlation_id": entry.correlation_id,
-            "metadata": entry.metadata,
-        }
-        for entry in entries
-    ]
+    def _entries_to_json(entries: List) -> str:
+        """Convert a list of LogEntry objects to a JSON string.
 
-    return json.dumps(log_dicts, indent=2)
+        Args:
+            entries: List of LogEntry objects
 
+        Returns:
+            JSON-formatted string of log entries
+        """
+        log_dicts = [
+            {
+                "timestamp": entry.timestamp,
+                "level": entry.level,
+                "message": entry.message,
+                "source": entry.source,
+                "request_id": entry.request_id,
+                "session_id": entry.session_id,
+                "correlation_id": entry.correlation_id,
+                "metadata": entry.metadata,
+            }
+            for entry in entries
+        ]
+        return json.dumps(log_dicts, indent=2)
 
-@mcp.resource("logs://session/{session_id}")
-def get_session_logs(session_id: str) -> str:
-    """Get all logs for a specific session ID as JSON array.
+    @mcp.resource("logs://recent")
+    def get_recent_logs() -> str:
+        """Get logs from the last 5 minutes as JSON array.
 
-    Args:
-        session_id: The session ID to query
+        Returns:
+            JSON array of log entries from the last 5 minutes
+        """
+        entries = mcp_tools.query_logs(time_range="5m", limit=1000)
+        return _entries_to_json(entries)
 
-    Returns:
-        JSON array of log entries for the specified session
-    """
-    entries = mcp_tools.query_logs(session_id=session_id, limit=10000)
+    @mcp.resource("logs://request/{request_id}")
+    def get_request_logs(request_id: str) -> str:
+        """Get all logs for a specific request ID as JSON array.
 
-    # Convert LogEntry objects to dictionaries
-    log_dicts = [
-        {
-            "timestamp": entry.timestamp,
-            "level": entry.level,
-            "message": entry.message,
-            "source": entry.source,
-            "request_id": entry.request_id,
-            "session_id": entry.session_id,
-            "correlation_id": entry.correlation_id,
-            "metadata": entry.metadata,
-        }
-        for entry in entries
-    ]
+        Args:
+            request_id: The request ID to query
 
-    return json.dumps(log_dicts, indent=2)
+        Returns:
+            JSON array of log entries for the specified request
+        """
+        entries = mcp_tools.query_logs(request_id=request_id, limit=10000)
+        return _entries_to_json(entries)
 
+    @mcp.resource("logs://session/{session_id}")
+    def get_session_logs(session_id: str) -> str:
+        """Get all logs for a specific session ID as JSON array.
 
-@mcp.resource("logs://errors")
-def get_error_logs() -> str:
-    """Get ERROR level logs from the last 5 minutes as JSON array.
+        Args:
+            session_id: The session ID to query
 
-    Returns:
-        JSON array of ERROR level log entries from the last 5 minutes
-    """
-    entries = mcp_tools.query_logs(time_range="5m", level="ERROR", limit=1000)
+        Returns:
+            JSON array of log entries for the specified session
+        """
+        entries = mcp_tools.query_logs(session_id=session_id, limit=10000)
+        return _entries_to_json(entries)
 
-    # Convert LogEntry objects to dictionaries
-    log_dicts = [
-        {
-            "timestamp": entry.timestamp,
-            "level": entry.level,
-            "message": entry.message,
-            "source": entry.source,
-            "request_id": entry.request_id,
-            "session_id": entry.session_id,
-            "correlation_id": entry.correlation_id,
-            "metadata": entry.metadata,
-        }
-        for entry in entries
-    ]
+    @mcp.resource("logs://errors")
+    def get_error_logs() -> str:
+        """Get ERROR level logs from the last 5 minutes as JSON array.
 
-    return json.dumps(log_dicts, indent=2)
+        Returns:
+            JSON array of ERROR level log entries from the last 5 minutes
+        """
+        entries = mcp_tools.query_logs(time_range="5m", level="ERROR", limit=1000)
+        return _entries_to_json(entries)
 
+    @mcp.resource("logs://source/{source}")
+    def get_source_logs(source: str) -> str:
+        """Get logs from a specific source in the last 5 minutes as JSON array.
 
-@mcp.resource("logs://source/{source}")
-def get_source_logs(source: str) -> str:
-    """Get logs from a specific source in the last 5 minutes as JSON array.
+        Args:
+            source: The source name to query (e.g., 'middleware', 'application')
 
-    Args:
-        source: The source name to query (e.g., 'middleware', 'application')
-
-    Returns:
-        JSON array of log entries from the specified source
-    """
-    entries = mcp_tools.query_logs(time_range="5m", source=source, limit=1000)
-
-    # Convert LogEntry objects to dictionaries
-    log_dicts = [
-        {
-            "timestamp": entry.timestamp,
-            "level": entry.level,
-            "message": entry.message,
-            "source": entry.source,
-            "request_id": entry.request_id,
-            "session_id": entry.session_id,
-            "correlation_id": entry.correlation_id,
-            "metadata": entry.metadata,
-        }
-        for entry in entries
-    ]
-
-    return json.dumps(log_dicts, indent=2)
+        Returns:
+            JSON array of log entries from the specified source
+        """
+        entries = mcp_tools.query_logs(time_range="5m", source=source, limit=1000)
+        return _entries_to_json(entries)

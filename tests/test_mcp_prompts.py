@@ -186,5 +186,11 @@ def test_prompt_messages_have_content():
         # Check that messages have content
         for message in result:
             assert hasattr(message, "content")
-            assert isinstance(message.content, str)
-            assert len(message.content) > 0
+            # FastMCP now uses TextContent objects instead of plain strings
+            if isinstance(message.content, str):
+                assert len(message.content) > 0
+            else:
+                # TextContent object has a text attribute
+                assert hasattr(message.content, "text")
+                assert isinstance(message.content.text, str)
+                assert len(message.content.text) > 0
