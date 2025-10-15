@@ -24,7 +24,7 @@ def register_resources(mcp: FastMCP) -> None:
         mcp: The FastMCP server instance to register resources with
     """
 
-    def _entries_to_json(entries: List) -> str:
+    def _entries_to_json(entries: list) -> str:
         """Convert a list of LogEntry objects to a JSON string.
 
         Args:

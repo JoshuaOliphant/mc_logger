@@ -26,17 +26,15 @@ async def temp_db():
     temp_path = temp_file.name
     temp_file.close()
 
-    # Configure logger with temp database
+    # Configure logger, write initial data, and shut down to ensure flush
     logger = Logger()
     logger.configure(db_path=temp_path, flush_interval=0.1, force=True)
-
-    # Add some sample log entries
     set_request_id("test-request-123")
     logger.log("INFO", "Test log entry", source="test")
+    logger.shutdown()
 
-    # Flush and wait for writes
-    logger.flush()
-    await asyncio.sleep(0.3)
+    # Re-configure the logger for the test to use
+    logger.configure(db_path=temp_path, flush_interval=0.1, force=True)
 
     yield temp_path
 
