@@ -9,6 +9,7 @@ Comprehensive guide for running MC Logger as a Model Context Protocol (MCP) serv
 - [Server Setup](#server-setup)
 - [Integration Guides](#integration-guides)
 - [Environment Variables](#environment-variables)
+- [Security Considerations](#security-considerations)
 - [Tools Reference](#tools-reference)
 - [Resources Reference](#resources-reference)
 - [Prompts Reference](#prompts-reference)
@@ -224,6 +225,198 @@ mc-logger-mcp --db-path /tmp/logs.db  # Overrides env var
 # Docker example
 docker run -e MC_LOGGER_DB_PATH=/data/logs.db myapp
 ```
+
+## Security Considerations
+
+### Transport Security
+
+MC Logger MCP server supports two transport modes with different security profiles:
+
+#### Stdio Transport (Default - Recommended for Local Use)
+
+The stdio transport communicates via standard input/output and is designed for **local desktop use only**:
+
+- **Use cases**: Claude Desktop, Cursor IDE, local development
+- **Security**: Process-level isolation, no network exposure
+- **Authentication**: Managed by the parent application (Claude Desktop, etc.)
+- **Recommended for**: Development, local debugging, desktop AI assistants
+
+```bash
+# Safe for local use
+mc-logger-mcp  # Uses stdio by default
+```
+
+#### HTTP Transport (Network Exposure)
+
+The HTTP transport exposes the server over the network and requires additional security measures:
+
+**⚠️ WARNING**: HTTP transport has NO built-in authentication or encryption. Only use in trusted networks.
+
+**Recommended deployment patterns**:
+
+1. **Localhost only** (Development/Testing):
+   ```bash
+   # Bind to localhost only
+   mc-logger-mcp --transport http --port 8000
+   ```
+   - Access: `http://localhost:8000`
+   - Security: Only accessible from the same machine
+   - Use case: Local development, testing
+
+2. **Private network** (Internal tools):
+   ```bash
+   # Behind a firewall or VPN
+   mc-logger-mcp --transport http --port 8000
+   ```
+   - Access: Within private network only
+   - Security: Network-level isolation (firewall, VPN)
+   - Use case: Internal debugging tools, team collaboration
+   - **Required**: Firewall rules, VPN, or network segmentation
+
+3. **Production deployment** (NOT RECOMMENDED without additional security):
+
+   If you must expose the HTTP server in production:
+
+   - **Use a reverse proxy** (nginx, Caddy) with:
+     - TLS/HTTPS encryption
+     - Authentication (API keys, OAuth, mTLS)
+     - Rate limiting
+     - IP allowlisting
+
+   - **Example nginx configuration**:
+     ```nginx
+     server {
+         listen 443 ssl;
+         server_name logs.internal.example.com;
+
+         ssl_certificate /path/to/cert.pem;
+         ssl_certificate_key /path/to/key.pem;
+
+         # Require API key
+         if ($http_x_api_key != "your-secret-key") {
+             return 401;
+         }
+
+         location / {
+             proxy_pass http://localhost:8000;
+         }
+     }
+     ```
+
+### Data Exposure Risks
+
+MC Logger provides **read-only** access to log data, which may contain sensitive information:
+
+**Potential sensitive data in logs**:
+- Request IDs and session IDs
+- User metadata (IPs, user agents, etc.)
+- Error stack traces (may expose code structure)
+- Request parameters (may contain PII)
+- API endpoint paths and timing information
+
+**Mitigation strategies**:
+
+1. **Sanitize logs before writing**:
+   ```python
+   # In your application, redact sensitive data
+   from mc_logger import get_logger
+
+   logger = get_logger()
+   # Don't log raw passwords, tokens, etc.
+   logger.log("INFO", "User login", metadata={
+       "user_id": user_id,  # OK
+       "ip": anonymize_ip(request.ip),  # Anonymized
+       # "password": password  # NEVER log this!
+   })
+   ```
+
+2. **Restrict database file access**:
+   ```bash
+   # Set restrictive permissions
+   chmod 640 /var/log/app.db
+   chown app:app /var/log/app.db
+   ```
+
+3. **Use separate databases for different sensitivity levels**:
+   ```json
+   {
+     "mcpServers": {
+       "mc-logger-app": {
+         "command": "mc-logger-mcp",
+         "env": {"MC_LOGGER_DB_PATH": "/var/log/app.db"}
+       },
+       "mc-logger-audit": {
+         "command": "mc-logger-mcp",
+         "env": {"MC_LOGGER_DB_PATH": "/var/log/audit.db"}
+       }
+     }
+   }
+   ```
+
+### Desktop Integration Security
+
+When integrating with Claude Desktop or Cursor IDE:
+
+**✅ Security benefits**:
+- No network exposure (stdio transport)
+- Application-managed authentication
+- Process-level isolation
+
+**⚠️ Considerations**:
+- AI assistant has **read access** to all logs in the database
+- Ensure log database doesn't contain credentials or secrets
+- Consider using time-limited database files (rotate/archive old logs)
+
+### Environment Variable Security
+
+**Best practices for environment variables**:
+
+1. **Don't commit secrets to version control**:
+   ```bash
+   # Use .env files (add to .gitignore)
+   echo "MC_LOGGER_DB_PATH=/secure/path/logs.db" >> .env.local
+   ```
+
+2. **Use absolute paths to prevent path traversal**:
+   ```bash
+   # Good
+   export MC_LOGGER_DB_PATH=/var/log/app.db
+
+   # Avoid (relative paths can be unpredictable)
+   export MC_LOGGER_DB_PATH=../../logs.db
+   ```
+
+3. **In Docker, use secrets management**:
+   ```bash
+   # Docker secrets (Swarm)
+   docker secret create mc_logger_db_path /path/to/db
+
+   # Or environment variables from secure store
+   docker run --env-file <(vault kv get -format=env mc-logger) myapp
+   ```
+
+### Deployment Checklist
+
+Before deploying the MCP server:
+
+- [ ] **Transport mode**: Use stdio for local, HTTP only in trusted networks
+- [ ] **Authentication**: If using HTTP, implement authentication via reverse proxy
+- [ ] **Encryption**: Use TLS/HTTPS for any network transport
+- [ ] **Database permissions**: Restrict file access (chmod 640)
+- [ ] **Log sanitization**: Ensure logs don't contain passwords, tokens, or PII
+- [ ] **Network isolation**: Use firewall rules or VPN for HTTP transport
+- [ ] **Monitoring**: Track MCP server access and query patterns
+- [ ] **Rate limiting**: Implement rate limits to prevent abuse
+- [ ] **Audit logging**: Log MCP server access for security auditing
+
+### Reporting Security Issues
+
+If you discover a security vulnerability in MC Logger's MCP server:
+
+1. **Do NOT** open a public GitHub issue
+2. Email security concerns to: [your-security-email]
+3. Include: Description, reproduction steps, potential impact
+4. We will respond within 48 hours
 
 ## Tools Reference
 

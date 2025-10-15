@@ -14,16 +14,21 @@ To use this module, install MC Logger with the MCP extra:
 
 try:
     from fastmcp import FastMCP
-except ImportError:
+except ImportError as e:
     raise ImportError(
         "MC Logger MCP server requires FastMCP. "
         "Install with: uv add 'mc-logger[mcp]' or pip install 'mc-logger[mcp]'"
-    )
+    ) from e
 
+# Import after FastMCP check to ensure dependency is available
 from mc_logger.mcp.server import mcp, create_server
 
-# Import resources and prompts modules to register them with the server
-import mc_logger.mcp.resources  # noqa: F401
-import mc_logger.mcp.prompts  # noqa: F401
+# Register resources and prompts with the server
+# This must happen after the mcp instance is created to avoid circular imports
+from mc_logger.mcp.resources import register_resources
+from mc_logger.mcp.prompts import register_prompts
+
+register_resources(mcp)
+register_prompts(mcp)
 
 __all__ = ["mcp", "create_server", "FastMCP"]

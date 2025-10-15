@@ -132,7 +132,7 @@ def mark_session(
         start_ts, _ = mcp_tools.parse_time_range(start_time)
 
     if end_time:
-        end_ts, _ = mcp_tools.parse_time_range(end_time)
+        _, end_ts = mcp_tools.parse_time_range(end_time)
 
     return mcp_tools.mark_session(
         session_id=session_id,
@@ -166,3 +166,9 @@ def create_server() -> FastMCP:
         Configured FastMCP server instance with all tools registered
     """
     return mcp
+
+
+# Allow running directly with: python -m mc_logger.mcp.server
+# Or with FastMCP CLI: fastmcp run mc_logger/mcp/server.py
+if __name__ == "__main__":
+    mcp.run()

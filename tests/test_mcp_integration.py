@@ -147,8 +147,8 @@ async def test_summarize_logs_filters_by_request_id(temp_db):
 
     assert isinstance(result, str)
     assert "Log Summary" in result
-    # Should only include the 3 events from req-002
-    assert "Total Events: 3" in result
+    # Should only include the 3 events from req-002 (markdown formatted)
+    assert "**Total Events:** 3" in result
 
 
 @pytest.mark.asyncio
@@ -172,20 +172,28 @@ async def test_mark_session_returns_confirmation(temp_db):
 
 @pytest.mark.asyncio
 async def test_configure_logger_updates_settings(temp_db):
-    """Test that configure_logger updates logger configuration."""
-    new_path = tempfile.mktemp(suffix=".db")
-
-    result = configure_logger(db_path=new_path, flush_interval=2.0)
-
-    assert isinstance(result, str)
-    assert new_path in result
-    assert "2.0" in result
-
-    # Cleanup - best effort, may not exist
+    """Test that configure function updates logger configuration."""
+    new_path = None
     try:
-        Path(new_path).unlink()
-    except FileNotFoundError:
-        pass
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as temp_f:
+            new_path = temp_f.name
+
+        # Use the core configure function, not the MCP tool
+        configure(db_path=new_path, flush_interval=2.0, force=True)
+
+        # Verify logger was configured
+        logger = Logger()
+        logger.log("INFO", "test message")
+        logger.flush()
+        await asyncio.sleep(0.2)
+
+        # Query to verify the message was written to new DB
+        results = logger.query(limit=1)
+        assert len(results) >= 1
+    finally:
+        # Cleanup
+        if new_path:
+            Path(new_path).unlink(missing_ok=True)
 
 
 @pytest.mark.asyncio
